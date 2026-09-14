@@ -1,0 +1,822 @@
+[
+  {
+    "id": "food-01",
+    "name": {
+      "vi": "Phở Bò Tái Lăn Thanh Vị",
+      "en": "Delicate Sautéed Beef Pho"
+    },
+    "subtitle": {
+      "vi": "Nước dùng ninh xương thảo mộc thơm lừng",
+      "en": "Herbal bone broth infused with delicate spices"
+    },
+    "description": {
+      "vi": "Phở bò tái lăn với thịt bò tươi áp chảo nhanh cùng tỏi, hành hoa tươi và bánh phở mềm mịn, giàu sắt và protein giúp khởi đầu ngày mới tràn đầy năng lượng.",
+      "en": "Tender beef flash-sautéed with garlic and green scallions over silky rice noodles in rich bone broth, packed with natural iron and protein."
+    },
+    "image": "https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?auto=format&fit=crop&w=800&q=80",
+    "category": {
+      "vi": "Món Nước",
+      "en": "Noodle Soup"
+    },
+    "mealTime": ["breakfast"],
+    "dietaryType": "meat",
+    "goal": ["muscle_gain", "balanced"],
+    "rarity": "SR",
+    "prepTimeMinutes": 25,
+    "nutrition": {
+      "calories": 480,
+      "protein": 32,
+      "carbs": 58,
+      "fat": 12,
+      "fiber": 3,
+      "keyVitamins": ["Vitamin B12", "Sắt (Iron)", "Kẽm (Zinc)"]
+    },
+    "healthBenefits": {
+      "vi": ["Tái tạo cơ bắp sau giấc ngủ", "Bồi bổ năng lượng và giữ ấm cơ thể", "Nước dùng thảo mộc hỗ trợ tiêu hóa"],
+      "en": ["Muscle recovery and replenishment", "Boosts morning energy and warmth", "Digestive support from natural spices"]
+    },
+    "ingredients": {
+      "vi": ["Thịt bò thăn nạc", "Bánh phở tươi", "Hành tây, hành lá, ngò gai", "Nước dùng xương thảo quả hồi quế"],
+      "en": ["Lean beef tenderloin", "Fresh rice pho noodles", "Scallions, cilantro, red onion", "Aromatic star anise broth"]
+    }
+  },
+  {
+    "id": "food-02",
+    "name": {
+      "vi": "Bánh Mì Ngũ Cốc Ức Gà Bơ Sáp",
+      "en": "Artisan Avocado & Chicken Sourdough"
+    },
+    "subtitle": {
+      "vi": "Bữa sáng giòn rụm thanh lành",
+      "en": "Crisp sourdough toast with creamy avocado"
+    },
+    "description": {
+      "vi": "Bánh mì nguyên cám giòn rụm phủ sốt bơ sáp tươi nghiền, ức gà áp chảo xé sợi và trứng ốp la lòng đào rắc tiêu đen thơm nức mũi.",
+      "en": "Crispy multigrain sourdough topped with freshly mashed avocado, shredded pan-seared chicken breast, and a sunny-side-up egg."
+    },
+    "image": "https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=800&q=80",
+    "category": {
+      "vi": "Món Chính",
+      "en": "Main Dish"
+    },
+    "mealTime": ["breakfast", "afternoon"],
+    "dietaryType": "eatclean",
+    "goal": ["balanced", "weight_loss", "muscle_gain"],
+    "rarity": "SSR",
+    "prepTimeMinutes": 12,
+    "nutrition": {
+      "calories": 410,
+      "protein": 28,
+      "carbs": 38,
+      "fat": 14,
+      "fiber": 7,
+      "keyVitamins": ["Vitamin E", "Omega-3", "Kali"]
+    },
+    "healthBenefits": {
+      "vi": ["Chất béo tốt từ bơ bảo vệ tim mạch", "Chỉ số đường huyết thấp giúp no lâu", "Cung cấp đạm nạc tinh khiết"],
+      "en": ["Heart-healthy monounsaturated fats", "Low glycemic index for steady energy", "Pure lean protein foundation"]
+    },
+    "ingredients": {
+      "vi": ["Bánh mì nguyên cám", "Ức gà luộc áp chảo", "Bơ sáp chín mọng", "Trứng gà ta lòng đào", "Cà chua bi"],
+      "en": ["Whole grain sourdough", "Pan-seared chicken breast", "Ripe avocado", "Soft-boiled egg", "Cherry tomatoes"]
+    }
+  },
+  {
+    "id": "food-03",
+    "name": {
+      "vi": "Smoothie Bowl Việt Quất Hạt Chia",
+      "en": "Berry Acai & Chia Energy Bowl"
+    },
+    "subtitle": {
+      "vi": "Tươi mát sảng khoái đánh thức vị giác",
+      "en": "Antioxidant-rich smoothie bowl with superfoods"
+    },
+    "description": {
+      "vi": "Tô sinh tố mát lạnh từ quả việt quất xay nhuyễn cùng chuối chín và sữa chua Hy Lạp, rắc hạt chia, dừa sấy giòn và hạnh nhân lát.",
+      "en": "Chilled antioxidant bowl made with blended wild blueberries, ripe banana, and Greek yogurt, topped with chia seeds, granola, and toasted almonds."
+    },
+    "image": "https://images.unsplash.com/photo-1590301157890-4810ed352733?auto=format&fit=crop&w=800&q=80",
+    "category": {
+      "vi": "Tráng Miệng / Ăn Nhẹ",
+      "en": "Snack & Dessert"
+    },
+    "mealTime": ["breakfast", "afternoon"],
+    "dietaryType": "vegetarian",
+    "goal": ["detox", "weight_loss"],
+    "rarity": "SR",
+    "prepTimeMinutes": 8,
+    "nutrition": {
+      "calories": 290,
+      "protein": 14,
+      "carbs": 44,
+      "fat": 6,
+      "fiber": 9,
+      "keyVitamins": ["Vitamin C", "Anthocyanin", "Canxi"]
+    },
+    "healthBenefits": {
+      "vi": ["Chống oxy hóa mạnh mẽ giúp trẻ hóa làn da", "Hỗ trợ tiêu hóa nhờ men vi sinh tự nhiên", "Cải thiện sự tập trung buổi sáng"],
+      "en": ["Powerful antioxidants for radiant skin", "Probiotic support for gut health", "Boosts cognitive focus"]
+    },
+    "ingredients": {
+      "vi": ["Việt quất tươi/đông lạnh", "Chuối đông lạnh", "Sữa chua Hy Lạp không đường", "Hạt chia hữu cơ", "Hạnh nhân lát"],
+      "en": ["Wild blueberries", "Frozen banana", "Unsweetened Greek yogurt", "Organic chia seeds", "Almond flakes"]
+    }
+  },
+  {
+    "id": "food-04",
+    "name": {
+      "vi": "Bánh Mì Chảo Xíu Mại Trứng Đậu Hũ",
+      "en": "Sunny Tofu & Meatball Skillet"
+    },
+    "subtitle": {
+      "vi": "Bữa sáng ấm áp quen thuộc",
+      "en": "Classic skillet with savory meatballs and sunny egg"
+    },
+    "description": {
+      "vi": "Chảo xíu mại sốt cà chua đậm đà kết hợp đậu hũ non thanh mát và trứng ốp la, ăn kèm một ổ bánh mì giòn tan cho ngày năng động.",
+      "en": "Warm cast iron skillet with tender pork meatballs simmered in fresh tomato sauce, soft tofu, and sunny egg with crispy baguette."
+    },
+    "image": "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80",
+    "category": {
+      "vi": "Món Chính",
+      "en": "Main Dish"
+    },
+    "mealTime": ["breakfast"],
+    "dietaryType": "meat",
+    "goal": ["balanced"],
+    "rarity": "UC",
+    "prepTimeMinutes": 18,
+    "nutrition": {
+      "calories": 520,
+      "protein": 26,
+      "carbs": 62,
+      "fat": 18,
+      "fiber": 4,
+      "keyVitamins": ["Lycopene", "Vitamin A", "Vitamin B6"]
+    },
+    "healthBenefits": {
+      "vi": ["Lycopene từ cà chua bảo vệ tế bào", "Nguồn đạm dồi dào từ thịt nạc và đậu hũ", "Tạo cảm giác thỏa mãn và tràn đầy tinh thần"],
+      "en": ["Lycopene from tomatoes boosts cell immunity", "Balanced protein from lean pork and tofu", "Wholesome and satisfying start"]
+    },
+    "ingredients": {
+      "vi": ["Thịt nạc vai xay", "Cà chua chín mọng", "Đậu hũ non", "Trứng gà", "Bánh mì Việt Nam"],
+      "en": ["Lean minced pork", "Ripe tomatoes", "Silken tofu", "Farm egg", "Crisp baguette"]
+    }
+  },
+  {
+    "id": "food-05",
+    "name": {
+      "vi": "Yến Mạch Ngâm Qua Đêm Táo Quế",
+      "en": "Apple Cinnamon Overnight Oats"
+    },
+    "subtitle": {
+      "vi": "Thực đơn Eat Clean tiện lợi và nhẹ bụng",
+      "en": "No-cook overnight oats with spiced apple"
+    },
+    "description": {
+      "vi": "Yến mạch nguyên hạt ngâm sữa hạnh nhân qua đêm, ướp bột quế thơm lừng cùng táo tươi thái hạt lựu và một chút mật ong nguyên chất.",
+      "en": "Rolled oats soaked overnight in almond milk with Ceylon cinnamon, diced crisp apples, walnuts, and a drizzle of raw honey."
+    },
+    "image": "https://images.unsplash.com/photo-1517673132405-a56a62b18caf?auto=format&fit=crop&w=800&q=80",
+    "category": {
+      "vi": "Món Chay",
+      "en": "Vegetarian"
+    },
+    "mealTime": ["breakfast"],
+    "dietaryType": "vegan",
+    "goal": ["weight_loss", "balanced"],
+    "rarity": "C",
+    "prepTimeMinutes": 5,
+    "nutrition": {
+      "calories": 310,
+      "protein": 11,
+      "carbs": 52,
+      "fat": 7,
+      "fiber": 8,
+      "keyVitamins": ["Beta-glucan", "Vitamin B1", "Magiê"]
+    },
+    "healthBenefits": {
+      "vi": ["Beta-glucan giúp hạ cholesterol tự nhiên", "Ổn định đường huyết kéo dài suốt buổi sáng", "Tiện lợi và dễ hấp thu"],
+      "en": ["Beta-glucan lowers LDL cholesterol", "Stabilizes blood sugar levels", "Effortless digestive comfort"]
+    },
+    "ingredients": {
+      "vi": ["Yến mạch cán dẹt", "Sữa hạnh nhân không đường", "Táo xanh giòn ngọt", "Bột quế", "Hạt óc chó"],
+      "en": ["Rolled oats", "Unsweetened almond milk", "Crisp green apple", "Cinnamon", "Walnuts"]
+    }
+  },
+  {
+    "id": "food-06",
+    "name": {
+      "vi": "Cơm Gạo Lứt Cá Hồi Áp Chảo Măng Tây",
+      "en": "Pan-Seared Salmon Brown Rice Bowl"
+    },
+    "subtitle": {
+      "vi": "Đỉnh cao dinh dưỡng cho bữa trưa khỏe mạnh",
+      "en": "Rich Omega-3 salmon paired with whole grains"
+    },
+    "description": {
+      "vi": "Phi lê cá hồi tươi Na Uy áp chảo xém cạnh sốt teriyaki cam thanh nhẹ, ăn kèm cơm gạo lứt dẻo bùi và măng tây xào tỏi giòn ngọt.",
+      "en": "Crispy-skin Norwegian salmon glazed with citrus teriyaki, served over fragrant brown rice and sautéed garlic asparagus."
+    },
+    "image": "https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&w=800&q=80",
+    "category": {
+      "vi": "Món Chính",
+      "en": "Main Dish"
+    },
+    "mealTime": ["lunch", "dinner"],
+    "dietaryType": "eatclean",
+    "goal": ["muscle_gain", "balanced", "weight_loss"],
+    "rarity": "SSR",
+    "prepTimeMinutes": 20,
+    "nutrition": {
+      "calories": 540,
+      "protein": 38,
+      "carbs": 46,
+      "fat": 19,
+      "fiber": 6,
+      "keyVitamins": ["Omega-3 DHA/EPA", "Vitamin D", "Selenium"]
+    },
+    "healthBenefits": {
+      "vi": ["Omega-3 hỗ trợ não bộ và thị giác", "Cung cấp năng lượng bền vững không gây buồn ngủ trưa", "Giàu khoáng chất giảm viêm khớp"],
+      "en": ["High Omega-3 for brain and cardiac vitality", "Sustained post-lunch energy without crashes", "Anti-inflammatory mineral profile"]
+    },
+    "ingredients": {
+      "vi": ["Phi lê cá hồi tươi", "Gạo lứt huyết rồng", "Măng tây xanh", "Dầu olive nguyên chất", "Sốt tương cam"],
+      "en": ["Fresh salmon fillet", "Red brown rice", "Green asparagus", "Extra virgin olive oil", "Orange soy glaze"]
+    }
+  },
+  {
+    "id": "food-07",
+    "name": {
+      "vi": "Bún Chả Nướng Than Hoa Thanh Nhẹ",
+      "en": "Hanoi Grilled Pork & Fresh Herb Bun"
+    },
+    "subtitle": {
+      "vi": "Hương vị truyền thống tươi ngon trọn vẹn",
+      "en": "Aromatic grilled pork skewers with fresh herb salad"
+    },
+    "description": {
+      "vi": "Chả thịt nạc ướp sả ớt nướng thơm lừng, dùng với bún lá sợi nhỏ, đu đủ cà rốt ngâm chua và bát nước mắm chua ngọt thanh vị chuẩn vị Hà Nội.",
+      "en": "Lemongrass-marinated lean grilled pork patties served with delicate rice vermicelli, pickled green papaya, and light dipping broth."
+    },
+    "image": "https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=800&q=80",
+    "category": {
+      "vi": "Món Chính",
+      "en": "Main Dish"
+    },
+    "mealTime": ["lunch"],
+    "dietaryType": "meat",
+    "goal": ["balanced"],
+    "rarity": "SR",
+    "prepTimeMinutes": 25,
+    "nutrition": {
+      "calories": 490,
+      "protein": 29,
+      "carbs": 59,
+      "fat": 14,
+      "fiber": 4,
+      "keyVitamins": ["Vitamin B1", "Vitamin C", "Folate"]
+    },
+    "healthBenefits": {
+      "vi": ["Rau sống phong phú bổ sung chất xơ và enzyme", "Cung cấp đạm cân đối cho hoạt động buổi chiều", "Nước chấm thanh không ngấy"],
+      "en": ["Abundant fresh herbs for fiber and digestive enzymes", "Sustains afternoon stamina", "Light and refreshing seasoning"]
+    },
+    "ingredients": {
+      "vi": ["Thịt nạc vai ướp mật ong sả", "Bún tươi", "Rau kinh giới, tía tô, xà lách", "Đu đủ cà rốt muối chua"],
+      "en": ["Honey lemongrass lean pork", "Rice vermicelli", "Fresh Vietnamese herbs", "Pickled papaya slaw"]
+    }
+  },
+  {
+    "id": "food-08",
+    "name": {
+      "vi": "Salad Ức Gà Quinoa & Sốt Mè Rang",
+      "en": "Quinoa & Roasted Sesame Chicken Salad"
+    },
+    "subtitle": {
+      "vi": "Thanh lọc cơ thể, giữ dáng thon thả",
+      "en": "High protein super-grain salad with savory dressing"
+    },
+    "description": {
+      "vi": "Hạt quinoa nấu chín trộn cùng ức gà nướng xé sợi, xà lách romaine giòn ngọt, dưa leo, cà chua bi và sốt mè rang Nhật Bản đậm đà.",
+      "en": "Fluffy organic quinoa tossed with shredded grilled chicken breast, crisp romaine lettuce, cucumber, cherry tomatoes, and Japanese roasted sesame dressing."
+    },
+    "image": "https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=800&q=80",
+    "category": {
+      "vi": "Salad",
+      "en": "Salad"
+    },
+    "mealTime": ["lunch", "dinner"],
+    "dietaryType": "eatclean",
+    "goal": ["weight_loss", "muscle_gain", "detox"],
+    "rarity": "SR",
+    "prepTimeMinutes": 15,
+    "nutrition": {
+      "calories": 360,
+      "protein": 34,
+      "carbs": 26,
+      "fat": 11,
+      "fiber": 7,
+      "keyVitamins": ["Vitamin A", "Vitamin K", "Magiê", "Choline"]
+    },
+    "healthBenefits": {
+      "vi": ["Quinoa là siêu thực phẩm cung cấp 9 axit amin thiết yếu", "Ức gà ít calo nhưng giữ cơ bắp săn chắc", "Chất xơ cao hỗ trợ giảm mỡ thừa"],
+      "en": ["Quinoa offers complete 9 essential amino acids", "Lean chicken preserves muscle tone", "High fiber assists healthy weight loss"]
+    },
+    "ingredients": {
+      "vi": ["Hạt quinoa trắng hữu cơ", "Ức gà áp chảo", "Xà lách Romaine", "Cà chua bi", "Sốt mè rang"],
+      "en": ["White quinoa", "Seared chicken breast", "Romaine lettuce", "Cherry tomatoes", "Toasted sesame dressing"]
+    }
+  },
+  {
+    "id": "food-09",
+    "name": {
+      "vi": "Cơm Chay Nấm Kho Tiêu Đậu Hũ Non",
+      "en": "Braised Shiitake & Silken Tofu Rice"
+    },
+    "subtitle": {
+      "vi": "Bữa trưa thanh đạm nuôi dưỡng an yên",
+      "en": "Earthy mushroom claypot with fragrant jasmine rice"
+    },
+    "description": {
+      "vi": "Nấm đùi gà và nấm hương tươi kho tiêu đen cay nồng, ăn kèm đậu hũ non chiên giòn sốt nước dừa và chén cơm hoa nhài dẻo thơm.",
+      "en": "King oyster and shiitake mushrooms slow-simmered in cracked black pepper and coconut sauce, served with golden silken tofu and steamed rice."
+    },
+    "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80",
+    "category": {
+      "vi": "Món Chay",
+      "en": "Vegetarian"
+    },
+    "mealTime": ["lunch", "dinner"],
+    "dietaryType": "vegan",
+    "goal": ["detox", "balanced"],
+    "rarity": "UC",
+    "prepTimeMinutes": 20,
+    "nutrition": {
+      "calories": 420,
+      "protein": 18,
+      "carbs": 64,
+      "fat": 9,
+      "fiber": 8,
+      "keyVitamins": ["Vitamin D thực vật", "B-complex", "Kẽm"]
+    },
+    "healthBenefits": {
+      "vi": ["Nấm tăng cường hệ miễn dịch tự nhiên", "Thanh lọc đường ruột, không gây nặng bụng", "Đậu nành cung cấp isoflavone lành mạnh"],
+      "en": ["Mushrooms strengthen natural immunity", "Digestive detox without heavy stomach sensation", "Plant isoflavones for metabolic support"]
+    },
+    "ingredients": {
+      "vi": ["Nấm đùi gà", "Nấm đông cô", "Đậu hũ non", "Tiêu đen Phú Quốc", "Gạo lài miên"],
+      "en": ["King oyster mushroom", "Shiitake mushrooms", "Silken tofu", "Cracked black pepper", "Jasmine rice"]
+    }
+  },
+  {
+    "id": "food-10",
+    "name": {
+      "vi": "Cơm Sườn Nướng Mật Ong Tinh Khiết",
+      "en": "Honey Glazed Lean Pork Chop Rice"
+    },
+    "subtitle": {
+      "vi": "Cung cấp năng lượng mạnh mẽ cho ngày dài",
+      "en": "Classic Vietnamese grilled pork chop with pickled veggies"
+    },
+    "description": {
+      "vi": "Sườn cốt lết lọc bớt mỡ ướp mật ong hoa nhãn và tỏi ớt nướng vàng ruộm, kết hợp chả trứng hấp nấm mèo và dưa leo cà chua tươi mát.",
+      "en": "Trimmed lean pork chop glazed with wild honey and grilled over charcoal, complemented by steamed egg meatloaf and fresh cucumber slices."
+    },
+    "image": "https://images.unsplash.com/photo-1543339308-43e59d6b73a6?auto=format&fit=crop&w=800&q=80",
+    "category": {
+      "vi": "Món Chính",
+      "en": "Main Dish"
+    },
+    "mealTime": ["lunch"],
+    "dietaryType": "meat",
+    "goal": ["muscle_gain", "balanced"],
+    "rarity": "C",
+    "prepTimeMinutes": 22,
+    "nutrition": {
+      "calories": 560,
+      "protein": 36,
+      "carbs": 62,
+      "fat": 17,
+      "fiber": 3,
+      "keyVitamins": ["Vitamin B1", "Sắt", "Niacin"]
+    },
+    "healthBenefits": {
+      "vi": ["Tăng tổng hợp protein cơ bắp", "Đảm bảo mức đường huyết ổn định cho người làm việc áp lực", "Cung cấp khoáng chất vi lượng thiết yếu"],
+      "en": ["Optimizes muscle protein synthesis", "Sustains physical endurance for demanding days", "Supplies essential trace minerals"]
+    },
+    "ingredients": {
+      "vi": ["Sườn cốt lết nạc", "Mật ong rừng", "Gạo tấm thơm", "Trứng gà chưng nấm mèo", "Dưa chua"],
+      "en": ["Lean pork chop", "Wildflower honey", "Broken jasmine rice", "Wood-ear egg meatloaf", "Pickles"]
+    }
+  },
+  {
+    "id": "food-11",
+    "name": {
+      "vi": "Nước Ép Cần Tây Táo Xanh Gừng Tươi",
+      "en": "Celery, Green Apple & Ginger Elixir"
+    },
+    "subtitle": {
+      "vi": "Ly nước ép thanh lọc buổi xế chiều",
+      "en": "Pure cold-pressed detox drink for afternoon vitality"
+    },
+    "description": {
+      "vi": "Cần tây giòn ép lạnh cùng táo xanh chua dịu, một lát chanh vàng và chút gừng ấm giúp xua tan mệt mỏi và làm dịu cơn thèm ăn vặt buổi chiều.",
+      "en": "Cold-pressed crisp celery and tart green apple with a dash of fresh ginger and lemon, refreshing your senses and curbing afternoon snack cravings."
+    },
+    "image": "https://images.unsplash.com/photo-1556881286-fc6915169721?auto=format&fit=crop&w=800&q=80",
+    "category": {
+      "vi": "Đồ Uống Healthy",
+      "en": "Healthy Beverage"
+    },
+    "mealTime": ["afternoon"],
+    "dietaryType": "vegan",
+    "goal": ["detox", "weight_loss"],
+    "rarity": "UC",
+    "prepTimeMinutes": 5,
+    "nutrition": {
+      "calories": 95,
+      "protein": 2,
+      "carbs": 22,
+      "fat": 0.5,
+      "fiber": 3,
+      "keyVitamins": ["Vitamin K", "Vitamin C", "Flavonoid"]
+    },
+    "healthBenefits": {
+      "vi": ["Giảm giữ nước và hỗ trợ thải độc gan", "Tăng cường năng lượng tự nhiên không chứa caffeine", "Hỗ trợ làn da căng mịn sáng hồng"],
+      "en": ["Reduces water retention and supports liver detox", "Caffeine-free revitalizing boost", "Promotes glowing complexion"]
+    },
+    "ingredients": {
+      "vi": ["Cần tây hữu cơ", "Táo xanh Granny Smith", "Gừng già", "Nước cốt chanh vàng"],
+      "en": ["Organic celery stalks", "Granny Smith apples", "Fresh ginger root", "Yellow lemon juice"]
+    }
+  },
+  {
+    "id": "food-12",
+    "name": {
+      "vi": "Sữa Chua Hy Lạp Trộn Hạt Granola Giòn",
+      "en": "Greek Yogurt & Crunchy Granola Cup"
+    },
+    "subtitle": {
+      "vi": "Món ăn xế nhẹ nhàng ngọt ngào",
+      "en": "Crisp toasted oat cluster with rich Greek yogurt"
+    },
+    "description": {
+      "vi": "Sữa chua Hy Lạp sánh mịn giàu đạm tự nhiên phủ lớp ngũ cốc granola nướng mật ong, dâu tây tươi và hạt bí đỏ thơm giòn.",
+      "en": "Velvety high-protein Greek yogurt topped with homemade honey-baked granola clusters, sweet strawberries, and toasted pumpkin seeds."
+    },
+    "image": "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=800&q=80",
+    "category": {
+      "vi": "Tráng Miệng / Ăn Nhẹ",
+      "en": "Snack & Dessert"
+    },
+    "mealTime": ["afternoon", "breakfast"],
+    "dietaryType": "vegetarian",
+    "goal": ["balanced", "muscle_gain", "weight_loss"],
+    "rarity": "SR",
+    "prepTimeMinutes": 6,
+    "nutrition": {
+      "calories": 240,
+      "protein": 18,
+      "carbs": 28,
+      "fat": 6,
+      "fiber": 4,
+      "keyVitamins": ["Canxi", "Men vi sinh Probiotic", "Vitamin B2"]
+    },
+    "healthBenefits": {
+      "vi": ["Probiotic hỗ trợ cân bằng hệ vi sinh đường ruột", "Hàm lượng đạm cao giúp no lâu đến bữa tối", "Thỏa mãn vị giác lành mạnh"],
+      "en": ["Probiotics restore healthy gut microbiome", "High protein curbs evening overeating", "Guilt-free dessert indulgence"]
+    },
+    "ingredients": {
+      "vi": ["Sữa chua Hy Lạp", "Granola yến mạch tự làm", "Dâu tây Đà Lạt", "Hạt bí ngô nướng", "Mật ong"],
+      "en": ["Greek strained yogurt", "Oat granola clusters", "Fresh strawberries", "Roasted pumpkin seeds", "Honey"]
+    }
+  },
+  {
+    "id": "food-13",
+    "name": {
+      "vi": "Bánh Chuối Yến Mạch Nướng Nồi Chiên",
+      "en": "Baked Banana Oat Protein Cake"
+    },
+    "subtitle": {
+      "vi": "Không bột mì tinh chế, không đường cát",
+      "en": "Flourless wholesome afternoon banana bread"
+    },
+    "description": {
+      "vi": "Bánh làm từ chuối tây chín tự nhiên kết hợp yến mạch xay mịn, trứng gà và hạt hạnh nhân, nướng thơm phức nức phòng vị ngọt thanh khiết.",
+      "en": "Naturally sweet ripe bananas blended with ground oats, farm eggs, and crushed almonds, warm-baked with zero refined sugar or white flour."
+    },
+    "image": "https://images.unsplash.com/photo-1586985289688-ca3cf47d3e6e?auto=format&fit=crop&w=800&q=80",
+    "category": {
+      "vi": "Tráng Miệng / Ăn Nhẹ",
+      "en": "Snack & Dessert"
+    },
+    "mealTime": ["afternoon"],
+    "dietaryType": "vegetarian",
+    "goal": ["balanced", "weight_loss"],
+    "rarity": "C",
+    "prepTimeMinutes": 25,
+    "nutrition": {
+      "calories": 180,
+      "protein": 6,
+      "carbs": 32,
+      "fat": 4,
+      "fiber": 4,
+      "keyVitamins": ["Kali", "Vitamin B6", "Magiê"]
+    },
+    "healthBenefits": {
+      "vi": ["Kali dồi dào giải tỏa căng thẳng thần kinh", "Năng lượng giải phóng chậm không gây tăng insulin đột ngột", "Hương vị chuối tự nhiên dịu ngọt"],
+      "en": ["Rich potassium relieves muscle tension", "Slow-release carbs prevent insulin spikes", "Wholesome natural sweetness"]
+    },
+    "ingredients": {
+      "vi": ["Chuối chín", "Yến mạch cán mịn", "Trứng gà", "Bột quế", "Hạt óc chó vụn"],
+      "en": ["Ripe bananas", "Fine rolled oats", "Eggs", "Cinnamon", "Crushed walnuts"]
+    }
+  },
+  {
+    "id": "food-14",
+    "name": {
+      "vi": "Trà Gạo Lứt Đậu Đen Rang Thảo Mộc",
+      "en": "Roasted Brown Rice & Black Bean Herbal Tea"
+    },
+    "subtitle": {
+      "vi": "Ấm áp thanh nhiệt cho buổi chiều thư giãn",
+      "en": "Warm detoxifying roasted grain brew"
+    },
+    "description": {
+      "vi": "Hạt gạo lứt đỏ và đậu đen xanh lòng sao vàng hạ thổ, hãm cùng hoa cúc vàng và cỏ ngọt, nước trà nâu đỏ óng ánh thơm ngát mùi ngũ cốc.",
+      "en": "Artisanal roasted red brown rice and black beans brewed with dried chamomile and stevia leaves, creating a soothing caffeine-free infusion."
+    },
+    "image": "https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=800&q=80",
+    "category": {
+      "vi": "Đồ Uống Healthy",
+      "en": "Healthy Beverage"
+    },
+    "mealTime": ["afternoon", "dinner"],
+    "dietaryType": "vegan",
+    "goal": ["detox", "weight_loss"],
+    "rarity": "UC",
+    "prepTimeMinutes": 5,
+    "nutrition": {
+      "calories": 35,
+      "protein": 1,
+      "carbs": 7,
+      "fat": 0.2,
+      "fiber": 1,
+      "keyVitamins": ["Anthocyanin", "Khoáng vi lượng", "Polyphenol"]
+    },
+    "healthBenefits": {
+      "vi": ["Thanh lọc gan thận và đào thải độc tố", "Hỗ trợ giấc ngủ ngon và giảm căng thẳng", "Kiểm soát cân nặng tự nhiên"],
+      "en": ["Gentle hepatic and renal flush", "Soothes evening stress for restorative sleep", "Aids natural weight management"]
+    },
+    "ingredients": {
+      "vi": ["Gạo lứt đỏ rang", "Đậu đen xanh lòng rang", "Bông cúc vàng khô", "Lá cỏ ngọt"],
+      "en": ["Roasted red brown rice", "Roasted green-core black beans", "Yellow chamomile", "Sweet stevia"]
+    }
+  },
+  {
+    "id": "food-15",
+    "name": {
+      "vi": "Cá Tuyết Áp Chảo Rau Củ Hấp Thảo Mộc",
+      "en": "Pan-Seared Cod with Herb-Steamed Greens"
+    },
+    "subtitle": {
+      "vi": "Bữa tối nhẹ bụng chuẩn Keto cao cấp",
+      "en": "Silky delicate white cod with tender steamed greens"
+    },
+    "description": {
+      "vi": "Thịt cá tuyết trắng nõn áp chảo cùng bơ tỏi và lá hương thảo, dùng cùng bông cải xanh và cà rốt baby hấp giữ trọn vitamin.",
+      "en": "Delicate tender cod seared with garlic butter and fresh rosemary, paired with vibrant steamed broccoli florets and baby carrots."
+    },
+    "image": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=800&q=80",
+    "category": {
+      "vi": "Món Chính",
+      "en": "Main Dish"
+    },
+    "mealTime": ["dinner"],
+    "dietaryType": "keto",
+    "goal": ["weight_loss", "muscle_gain", "balanced"],
+    "rarity": "SSR",
+    "prepTimeMinutes": 18,
+    "nutrition": {
+      "calories": 340,
+      "protein": 35,
+      "carbs": 8,
+      "fat": 15,
+      "fiber": 5,
+      "keyVitamins": ["I-ốt", "Vitamin B12", "Omega-3", "Selen"]
+    },
+    "healthBenefits": {
+      "vi": ["Ít calo, cực kỳ dễ tiêu hóa trước giờ đi ngủ", "I-ốt hỗ trợ chuyển hóa tuyến giáp tối ưu", "Đạm cá tinh khiết phục hồi cơ thể ban đêm"],
+      "en": ["Low calorie and effortlessly digestible before sleep", "Iodine supports thyroid metabolic health", "Pure fish protein repairs tissues overnight"]
+    },
+    "ingredients": {
+      "vi": ["Phi lê cá tuyết / cá hồi trắng", "Bơ nhạt", "Lá hương thảo (rosemary)", "Bông cải xanh", "Cà rốt bi"],
+      "en": ["White cod fillet", "Clarified butter", "Fresh rosemary", "Broccoli florets", "Baby carrots"]
+    }
+  },
+  {
+    "id": "food-16",
+    "name": {
+      "vi": "Canh Rong Biển Đậu Hũ Non Thịt Bằm",
+      "en": "Seaweed & Silken Tofu Wellness Soup"
+    },
+    "subtitle": {
+      "vi": "Ấm lòng thanh mát xua tan mệt mỏi",
+      "en": "Mineral-rich seaweed broth with tender tofu"
+    },
+    "description": {
+      "vi": "Rong biển wakame nâu bóng nấu trong nước dùng ngọt thanh cùng đậu hũ non mềm mịn và một ít thịt thăn bằm nhuyễn, rưới vài giọt dầu mè thơm.",
+      "en": "Tender wakame seaweed simmered in clear savory broth with melt-in-your-mouth silken tofu, lean minced pork, and toasted sesame oil."
+    },
+    "image": "https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=800&q=80",
+    "category": {
+      "vi": "Món Nước",
+      "en": "Soup"
+    },
+    "mealTime": ["dinner", "lunch"],
+    "dietaryType": "meat",
+    "goal": ["detox", "balanced", "weight_loss"],
+    "rarity": "SR",
+    "prepTimeMinutes": 15,
+    "nutrition": {
+      "calories": 210,
+      "protein": 19,
+      "carbs": 12,
+      "fat": 8,
+      "fiber": 4,
+      "keyVitamins": ["I-ốt", "Canxi thực vật", "Magiê"]
+    },
+    "healthBenefits": {
+      "vi": ["Cung cấp khoáng chất biển sâu giúp ngủ ngon giấc", "Nhẹ bụng không gây trào ngược ban đêm", "Thanh lọc cơ thể và giải nhiệt"],
+      "en": ["Deep-sea minerals promote deep restorative sleep", "Light on stomach preventing nocturnal reflux", "Cools internal body heat"]
+    },
+    "ingredients": {
+      "vi": ["Rong biển Wakame", "Đậu hũ non Nhật Bản", "Thịt thăn heo bằm nạc", "Dầu mè nguyên chất", "Hành hoa"],
+      "en": ["Wakame seaweed", "Silken tofu cubes", "Lean minced pork", "Toasted sesame oil", "Spring onions"]
+    }
+  },
+  {
+    "id": "food-17",
+    "name": {
+      "vi": "Salad Bơ Trứng Gà Sốt Sữa Chua Chanh Vàng",
+      "en": "Avocado & Egg Salad with Citrus Yogurt"
+    },
+    "subtitle": {
+      "vi": "Món ăn tối thanh tao ít đường bột",
+      "en": "Creamy low-carb dinner with tangy citrus notes"
+    },
+    "description": {
+      "vi": "Bơ sáp béo ngậy cắt quân cờ trộn cùng trứng luộc lòng đào, rau bina non baby và sốt sữa chua chanh vàng thì là dịu mát.",
+      "en": "Cubed rich avocado tossed with medium-boiled eggs, tender baby spinach, and a homemade lemon-dill Greek yogurt vinaigrette."
+    },
+    "image": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=800&q=80",
+    "category": {
+      "vi": "Salad",
+      "en": "Salad"
+    },
+    "mealTime": ["dinner"],
+    "dietaryType": "vegetarian",
+    "goal": ["weight_loss", "balanced"],
+    "rarity": "UC",
+    "prepTimeMinutes": 10,
+    "nutrition": {
+      "calories": 280,
+      "protein": 14,
+      "carbs": 12,
+      "fat": 19,
+      "fiber": 7,
+      "keyVitamins": ["Folate", "Lutein", "Vitamin E"]
+    },
+    "healthBenefits": {
+      "vi": ["Lutein và Zeaxanthin bảo vệ mắt sau ngày làm việc máy tính", "Hạn chế hấp thu carbohydrate trước giấc ngủ", "Chất béo tốt nuôi dưỡng tế bào da"],
+      "en": ["Lutein and Zeaxanthin relieve digital eye strain", "Minimizes nocturnal carbohydrate absorption", "Nourishes skin lipid barriers"]
+    },
+    "ingredients": {
+      "vi": ["Trứng gà ta", "Bơ sáp", "Rau bina baby", "Sữa chua không đường", "Nước chanh vàng"],
+      "en": ["Farm eggs", "Ripe avocado", "Baby spinach", "Unsweetened yogurt", "Lemon zest & juice"]
+    }
+  },
+  {
+    "id": "food-18",
+    "name": {
+      "vi": "Súp Bí Đỏ Hạt Điều Kem Dừa Thuần Chay",
+      "en": "Velvety Pumpkin Cashew & Coconut Soup"
+    },
+    "subtitle": {
+      "vi": "Món súp ấm áp làm dịu tâm hồn ban đêm",
+      "en": "Smooth warming vegan soup with toasted pumpkin seeds"
+    },
+    "description": {
+      "vi": "Bí đỏ hồ lô nướng thơm xay nhuyễn cùng hạt điều ngâm mềm và chút nước cốt dừa béo bùi, rắc hạt bí nướng giòn và ngò tây tươi.",
+      "en": "Roasted butternut squash blended with soaked cashews and light coconut cream, garnished with crispy pumpkin seeds and fresh parsley."
+    },
+    "image": "https://images.unsplash.com/photo-1476718406336-bb5a9690ee2a?auto=format&fit=crop&w=800&q=80",
+    "category": {
+      "vi": "Món Chay",
+      "en": "Vegetarian"
+    },
+    "mealTime": ["dinner"],
+    "dietaryType": "vegan",
+    "goal": ["detox", "balanced"],
+    "rarity": "SR",
+    "prepTimeMinutes": 20,
+    "nutrition": {
+      "calories": 260,
+      "protein": 7,
+      "carbs": 32,
+      "fat": 12,
+      "fiber": 6,
+      "keyVitamins": ["Beta-carotene", "Vitamin A", "Magiê"]
+    },
+    "healthBenefits": {
+      "vi": ["Magiê từ hạt điều giúp giãn cơ và an thần", "Beta-carotene tăng cường hàng rào miễn dịch", "Dễ tiêu hóa, tạo giấc ngủ sâu"],
+      "en": ["Cashew magnesium relaxes muscles and relieves stress", "Beta-carotene reinforces mucosal immunity", "Effortlessly comforting for restful sleep"]
+    },
+    "ingredients": {
+      "vi": ["Bí đỏ hồ lô", "Hạt điều tươi", "Nước cốt dừa tươi", "Gừng tươi", "Hạt bí nướng"],
+      "en": ["Butternut pumpkin", "Raw cashews", "Light coconut milk", "Ginger slivers", "Roasted pepitas"]
+    }
+  },
+  {
+    "id": "food-19",
+    "name": {
+      "vi": "Ức Gà Nướng Mật Mía & Bông Cải Xanh",
+      "en": "Grilled Molasses Chicken & Charred Broccoli"
+    },
+    "subtitle": {
+      "vi": "Bữa tối giàu đạm cho người rèn luyện thể thao",
+      "en": "Lean fitness dinner with golden charred greens"
+    },
+    "description": {
+      "vi": "Ức gà phi lê ướp mật mía và tiêu đen nướng chín mọng nước, ăn cùng bông cải xanh xào nhẹ dầu olive cho bữa tối chuẩn gymer.",
+      "en": "Juicy chicken breast glazed with natural sugarcane molasses and black pepper, accompanied by olive-oil charred tender broccoli."
+    },
+    "image": "https://images.unsplash.com/photo-1532550907401-a500c9a57435?auto=format&fit=crop&w=800&q=80",
+    "category": {
+      "vi": "Món Chính",
+      "en": "Main Dish"
+    },
+    "mealTime": ["dinner", "lunch"],
+    "dietaryType": "eatclean",
+    "goal": ["muscle_gain", "weight_loss"],
+    "rarity": "C",
+    "prepTimeMinutes": 18,
+    "nutrition": {
+      "calories": 360,
+      "protein": 42,
+      "carbs": 14,
+      "fat": 8,
+      "fiber": 5,
+      "keyVitamins": ["Vitamin C", "Vitamin B3", "Phosphorus"]
+    },
+    "healthBenefits": {
+      "vi": ["42g đạm nạc phục hồi vi tổn thương cơ bắp ban đêm", "Chất sulforaphane trong bông cải xanh ngừa oxy hóa tế bào", "Ít calo không tích tụ mỡ"],
+      "en": ["42g lean protein powers night-time muscle repair", "Sulforaphane in broccoli defends against oxidative stress", "Zero redundant evening calories"]
+    },
+    "ingredients": {
+      "vi": ["Ức gà tươi phi lê", "Mật mía tự nhiên", "Bông cải xanh Đà Lạt", "Dầu olive", "Tiêu đen giã thô"],
+      "en": ["Boneless chicken breast", "Cane molasses", "Fresh broccoli", "Extra virgin olive oil", "Coarse black pepper"]
+    }
+  },
+  {
+    "id": "food-20",
+    "name": {
+      "vi": "Nui Gạo Xào Nấm Đông Cô & Ớt Chuông",
+      "en": "Rice Penne Stir-Fry with Shiitake & Bell Peppers"
+    },
+    "subtitle": {
+      "vi": "Bữa tối không gluten thanh đạm sắc màu",
+      "en": "Gluten-free colorful pasta tossed with garden herbs"
+    },
+    "description": {
+      "vi": "Nui gạo lứt dai ngon xào cùng nấm đông cô tươi, ớt chuông ba màu rực rỡ và lá húng quế thơm nồng đậm phong cách Địa Trung Hải.",
+      "en": "Al dente brown rice penne tossed with fresh shiitake mushrooms, tricolor sweet bell peppers, and fresh sweet basil in cold-pressed olive oil."
+    },
+    "image": "https://images.unsplash.com/photo-1621996346565-e3d5d6281691?auto=format&fit=crop&w=800&q=80",
+    "category": {
+      "vi": "Món Chay",
+      "en": "Vegetarian"
+    },
+    "mealTime": ["dinner"],
+    "dietaryType": "vegan",
+    "goal": ["balanced", "detox"],
+    "rarity": "UC",
+    "prepTimeMinutes": 15,
+    "nutrition": {
+      "calories": 370,
+      "protein": 12,
+      "carbs": 58,
+      "fat": 7,
+      "fiber": 6,
+      "keyVitamins": ["Vitamin C vượt trội", "Vitamin A", "Folate"]
+    },
+    "healthBenefits": {
+      "vi": ["Không chứa gluten ngừa viêm đường ruột", "Ớt chuông dồi dào vitamin C tăng sinh collagen", "Vị ngọt tự nhiên của rau củ giúp thư thái"],
+      "en": ["100% gluten-free for gut comfort", "Bell peppers supply rich vitamin C for collagen", "Wholesome plant nourishment"]
+    },
+    "ingredients": {
+      "vi": ["Nui gạo lứt", "Nấm đông cô tươi", "Ớt chuông đỏ vàng", "Lá quế tây", "Dầu mè thơm"],
+      "en": ["Brown rice penne", "Fresh shiitake", "Sweet bell peppers", "Fresh basil", "Sesame drizzle"]
+    }
+  }
+]
