@@ -6,18 +6,19 @@ import type { FoodItem } from "@/types/food";
 interface SavedFoodsContextType {
   savedFoods: FoodItem[];
   saveFood: (food: FoodItem) => void;
-  removeFood: (id: string) => void;
+  removeFood: (id: number | string) => void;
   toggleSaveFood: (food: FoodItem) => boolean;
-  isSaved: (id: string) => boolean;
+  isSaved: (id: number | string) => boolean;
   saveMultiple: (foods: FoodItem[]) => void;
   clearSaved: () => void;
   totalCalories: number;
   totalProtein: number;
   totalCarbs: number;
   totalFat: number;
+  totalCost: number; // in thousands VND
 }
 
-const STORAGE_KEY = "foodlife_saved_meals_v1";
+const STORAGE_KEY = "foodlife_saved_meals_v2";
 
 const SavedFoodsContext = createContext<SavedFoodsContextType | undefined>(undefined);
 
@@ -53,7 +54,7 @@ export const SavedFoodsProvider: React.FC<{ children: React.ReactNode }> = ({ ch
   }, [savedFoods, isInitialized]);
 
   const isSaved = useCallback(
-    (id: string) => savedFoods.some((item) => item.id === id),
+    (id: number | string) => savedFoods.some((item) => item.id === Number(id) || String(item.id) === String(id)),
     [savedFoods]
   );
 
@@ -64,8 +65,8 @@ export const SavedFoodsProvider: React.FC<{ children: React.ReactNode }> = ({ ch
     });
   }, []);
 
-  const removeFood = useCallback((id: string) => {
-    setSavedFoods((prev) => prev.filter((item) => item.id !== id));
+  const removeFood = useCallback((id: number | string) => {
+    setSavedFoods((prev) => prev.filter((item) => item.id !== Number(id) && String(item.id) !== String(id)));
   }, []);
 
   const toggleSaveFood = useCallback((food: FoodItem): boolean => {
@@ -85,7 +86,7 @@ export const SavedFoodsProvider: React.FC<{ children: React.ReactNode }> = ({ ch
 
   const saveMultiple = useCallback((foods: FoodItem[]) => {
     setSavedFoods((prev) => {
-      const map = new Map<string, FoodItem>();
+      const map = new Map<number | string, FoodItem>();
       // Preserve newest first
       foods.forEach((f) => map.set(f.id, f));
       prev.forEach((f) => {
@@ -102,12 +103,13 @@ export const SavedFoodsProvider: React.FC<{ children: React.ReactNode }> = ({ ch
   const totals = useMemo(() => {
     return savedFoods.reduce(
       (acc, item) => ({
-        calories: acc.calories + (item.nutrition?.calories || 0),
-        protein: acc.protein + (item.nutrition?.protein || 0),
-        carbs: acc.carbs + (item.nutrition?.carbs || 0),
-        fat: acc.fat + (item.nutrition?.fat || 0),
+        calories: acc.calories + (item.macros?.calories || 0),
+        protein: acc.protein + (item.macros?.protein || 0),
+        carbs: acc.carbs + (item.macros?.carbs || 0),
+        fat: acc.fat + (item.macros?.fat || 0),
+        cost: acc.cost + (item.price || 0),
       }),
-      { calories: 0, protein: 0, carbs: 0, fat: 0 }
+      { calories: 0, protein: 0, carbs: 0, fat: 0, cost: 0 }
     );
   }, [savedFoods]);
 
@@ -120,10 +122,11 @@ export const SavedFoodsProvider: React.FC<{ children: React.ReactNode }> = ({ ch
       isSaved,
       saveMultiple,
       clearSaved,
-      totalCalories: totals.calories,
-      totalProtein: totals.protein,
-      totalCarbs: totals.carbs,
-      totalFat: totals.fat,
+      totalCalories: Math.round(totals.calories),
+      totalProtein: Math.round(totals.protein * 10) / 10,
+      totalCarbs: Math.round(totals.carbs * 10) / 10,
+      totalFat: Math.round(totals.fat * 10) / 10,
+      totalCost: totals.cost,
     }),
     [savedFoods, saveFood, removeFood, toggleSaveFood, isSaved, saveMultiple, clearSaved, totals]
   );

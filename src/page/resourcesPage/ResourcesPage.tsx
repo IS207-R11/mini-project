@@ -11,20 +11,23 @@ import {
   faUtensils,
 } from "@fortawesome/free-solid-svg-icons";
 import { useI18n } from "@/context/I18nContext";
-import type { FoodItem, DietaryType, MealTime, Rarity } from "@/types/food";
-import foodsDataRaw from "@/data/foods.json";
+import type {
+  DietaryFilter,
+  PriceFilter,
+  Rarity,
+} from "@/types/food";
+import { allFoods } from "@/lib/foodData";
 import { FoodFlashCard } from "@/components/food/FoodFlashCard";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
-const allFoods: FoodItem[] = foodsDataRaw as FoodItem[];
-
 type SortOption =
   | "name"
+  | "price_asc"
+  | "price_desc"
   | "calories_asc"
   | "calories_desc"
   | "protein_desc"
-  | "time_asc"
   | "rarity_desc";
 
 const rarityOrder: Record<Rarity, number> = {
@@ -35,96 +38,106 @@ const rarityOrder: Record<Rarity, number> = {
 };
 
 export const ResourcesPage: React.FC = () => {
-  const { locale, t } = useI18n();
+  const { t } = useI18n();
 
   // Search & Filters State
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState<string>("all");
-  const [selectedDiet, setSelectedDiet] = useState<DietaryType>("all");
-  const [selectedMealTime, setSelectedMealTime] = useState<MealTime | "all">("all");
+  const [selectedSession, setSelectedSession] = useState<string>("all");
+  const [selectedDiet, setSelectedDiet] = useState<DietaryFilter>("all");
+  const [selectedPrice, setSelectedPrice] = useState<PriceFilter>("all");
   const [sortBy, setSortBy] = useState<SortOption>("name");
-
-  // Extract unique categories based on current locale
-  const categories = useMemo(() => {
-    const set = new Set<string>();
-    allFoods.forEach((item) => {
-      const cat = item.category[locale] || item.category.vi;
-      if (cat) set.add(cat);
-    });
-    return Array.from(set);
-  }, [locale]);
 
   // Filter and sort items
   const filteredFoods = useMemo(() => {
     return allFoods
       .filter((food) => {
-        const name = (food.name[locale] || food.name.vi).toLowerCase();
-        const sub = (food.subtitle[locale] || food.subtitle.vi).toLowerCase();
-        const desc = (food.description[locale] || food.description.vi).toLowerCase();
-        const ingredients = (food.ingredients[locale] || food.ingredients.vi).join(" ").toLowerCase();
+        const name = (food.name || "").toLowerCase();
+        const nameEn = (food.name_en || "").toLowerCase();
+        const sub = (food.sub || "").toLowerCase();
+        const quip = (food.quip || "").toLowerCase();
+        const ingredients = (food.ingredients || []).join(" ").toLowerCase();
         const q = searchQuery.toLowerCase().trim();
 
         // Search match
-        if (q && !name.includes(q) && !sub.includes(q) && !desc.includes(q) && !ingredients.includes(q)) {
+        if (
+          q &&
+          !name.includes(q) &&
+          !nameEn.includes(q) &&
+          !sub.includes(q) &&
+          !quip.includes(q) &&
+          !ingredients.includes(q)
+        ) {
           return false;
         }
 
-        // Category match
-        if (selectedCategory !== "all") {
-          const cat = food.category[locale] || food.category.vi;
-          if (cat !== selectedCategory) return false;
-        }
-
-        // Diet match
-        if (selectedDiet !== "all") {
-          if (selectedDiet === "vegan" && food.dietaryType !== "vegan") return false;
-          if (selectedDiet === "vegetarian" && !["vegetarian", "vegan"].includes(food.dietaryType)) return false;
-          if (selectedDiet === "meat" && food.dietaryType !== "meat") return false;
-          if (selectedDiet === "eatclean" && food.dietaryType !== "eatclean") return false;
-          if (selectedDiet === "keto" && !["keto", "lowcarb"].includes(food.dietaryType)) return false;
-        }
-
-        // Meal time match
-        if (selectedMealTime !== "all") {
-          if (!food.mealTime.includes(selectedMealTime) && !food.mealTime.includes("all")) {
+        // Session match
+        if (selectedSession !== "all") {
+          if (!food.sessions.includes(selectedSession)) {
             return false;
           }
         }
 
+        // Dietary match
+        if (selectedDiet === "veg" && !food.veg) {
+          return false;
+        }
+        if (selectedDiet === "meat" && food.veg) {
+          return false;
+        }
+
+        // Price match
+        if (selectedPrice === "under_50" && food.price >= 50) return false;
+        if (
+          selectedPrice === "50_80" &&
+          (food.price < 50 || food.price > 80)
+        ) {
+          return false;
+        }
+        if (
+          selectedPrice === "80_120" &&
+          (food.price <= 80 || food.price > 120)
+        ) {
+          return false;
+        }
+        if (selectedPrice === "above_120" && food.price <= 120) return false;
+
         return true;
       })
       .sort((a, b) => {
-        const nameA = a.name[locale] || a.name.vi;
-        const nameB = b.name[locale] || b.name.vi;
-
         switch (sortBy) {
+          case "price_asc":
+            return a.price - b.price;
+          case "price_desc":
+            return b.price - a.price;
           case "calories_asc":
-            return a.nutrition.calories - b.nutrition.calories;
+            return a.macros.calories - b.macros.calories;
           case "calories_desc":
-            return b.nutrition.calories - a.nutrition.calories;
+            return b.macros.calories - a.macros.calories;
           case "protein_desc":
-            return b.nutrition.protein - a.nutrition.protein;
-          case "time_asc":
-            return a.prepTimeMinutes - b.prepTimeMinutes;
+            return b.macros.protein - a.macros.protein;
           case "rarity_desc":
             return (rarityOrder[b.rarity] || 0) - (rarityOrder[a.rarity] || 0);
           case "name":
           default:
-            return nameA.localeCompare(nameB);
+            return a.name.localeCompare(b.name, "vi");
         }
       });
-  }, [locale, searchQuery, selectedCategory, selectedDiet, selectedMealTime, sortBy]);
+  }, [searchQuery, selectedSession, selectedDiet, selectedPrice, sortBy]);
 
   const handleResetFilters = () => {
     setSearchQuery("");
-    setSelectedCategory("all");
+    setSelectedSession("all");
     setSelectedDiet("all");
-    setSelectedMealTime("all");
+    setSelectedPrice("all");
     setSortBy("name");
   };
 
   const hasActiveFilters =
-    searchQuery || selectedCategory !== "all" || selectedDiet !== "all" || selectedMealTime !== "all";
+    searchQuery ||
+    selectedSession !== "all" ||
+    selectedDiet !== "all" ||
+    selectedPrice !== "all" ||
+    sortBy !== "name";
 
   return (
     <div className="min-h-[calc(100vh-4rem)] ambient-bg pb-20 transition-colors duration-500">
@@ -172,23 +185,22 @@ export const ResourcesPage: React.FC = () => {
 
           {/* Filter & Sort Controls Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-            {/* Category Filter */}
+            {/* Session Filter */}
             <div className="space-y-1">
               <label className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-1">
                 <FontAwesomeIcon icon={faFilter} className="text-emerald-600 text-[10px]" />
-                Phân Loại
+                Buổi Ăn
               </label>
               <select
-                value={selectedCategory}
-                onChange={(e) => setSelectedCategory(e.target.value)}
+                value={selectedSession}
+                onChange={(e) => setSelectedSession(e.target.value)}
                 className="w-full bg-background border border-border/80 text-foreground text-xs font-medium rounded-xl p-2.5 focus:ring-2 focus:ring-emerald-500 focus:outline-hidden"
               >
-                <option value="all">{t("resources.categoryAll")}</option>
-                {categories.map((cat) => (
-                  <option key={cat} value={cat}>
-                    {cat}
-                  </option>
-                ))}
+                <option value="all">{t("resources.sessionAll")}</option>
+                <option value="Sáng sớm">{t("filter.morningSession")}</option>
+                <option value="Giữa trưa">{t("filter.middaySession")}</option>
+                <option value="Chiều">{t("filter.afternoonSession")}</option>
+                <option value="Tối">{t("filter.nightSession")}</option>
               </select>
             </div>
 
@@ -199,40 +211,40 @@ export const ResourcesPage: React.FC = () => {
               </label>
               <select
                 value={selectedDiet}
-                onChange={(e) => setSelectedDiet(e.target.value as DietaryType)}
+                onChange={(e) => setSelectedDiet(e.target.value as DietaryFilter)}
                 className="w-full bg-background border border-border/80 text-foreground text-xs font-medium rounded-xl p-2.5 focus:ring-2 focus:ring-emerald-500 focus:outline-hidden"
               >
-                <option value="all">{t("filter.all")}</option>
-                <option value="eatclean">{t("filter.eatclean")}</option>
-                <option value="vegetarian">{t("filter.vegetarian")}</option>
-                <option value="vegan">{t("filter.vegan")}</option>
+                <option value="all">{t("filter.allDiet")}</option>
+                <option value="veg">{t("filter.veg")}</option>
                 <option value="meat">{t("filter.meat")}</option>
-                <option value="keto">{t("filter.keto")}</option>
               </select>
             </div>
 
-            {/* Meal Time Filter */}
+            {/* Price Filter */}
             <div className="space-y-1">
               <label className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
-                {t("home.filterMealTime")}
+                {t("home.filterPrice")}
               </label>
               <select
-                value={selectedMealTime}
-                onChange={(e) => setSelectedMealTime(e.target.value as MealTime | "all")}
+                value={selectedPrice}
+                onChange={(e) => setSelectedPrice(e.target.value as PriceFilter)}
                 className="w-full bg-background border border-border/80 text-foreground text-xs font-medium rounded-xl p-2.5 focus:ring-2 focus:ring-emerald-500 focus:outline-hidden"
               >
-                <option value="all">{t("filter.all")}</option>
-                <option value="breakfast">{t("filter.breakfast")}</option>
-                <option value="lunch">{t("filter.lunch")}</option>
-                <option value="afternoon">{t("filter.afternoon")}</option>
-                <option value="dinner">{t("filter.dinner")}</option>
+                <option value="all">{t("filter.allPrice")}</option>
+                <option value="under_50">{t("filter.under50")}</option>
+                <option value="50_80">{t("filter.price50_80")}</option>
+                <option value="80_120">{t("filter.price80_120")}</option>
+                <option value="above_120">{t("filter.above120")}</option>
               </select>
             </div>
 
             {/* Sort Options */}
             <div className="space-y-1">
               <label className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-1">
-                <FontAwesomeIcon icon={faArrowDownWideShort} className="text-emerald-600 text-[10px]" />
+                <FontAwesomeIcon
+                  icon={faArrowDownWideShort}
+                  className="text-emerald-600 text-[10px]"
+                />
                 {t("resources.sortBy")}
               </label>
               <select
@@ -241,10 +253,11 @@ export const ResourcesPage: React.FC = () => {
                 className="w-full bg-background border border-border/80 text-foreground text-xs font-medium rounded-xl p-2.5 focus:ring-2 focus:ring-emerald-500 focus:outline-hidden"
               >
                 <option value="name">{t("resources.sortDefault")}</option>
+                <option value="price_asc">{t("resources.sortPriceAsc")}</option>
+                <option value="price_desc">{t("resources.sortPriceDesc")}</option>
                 <option value="calories_asc">{t("resources.sortCaloriesAsc")}</option>
                 <option value="calories_desc">{t("resources.sortCaloriesDesc")}</option>
                 <option value="protein_desc">{t("resources.sortProteinDesc")}</option>
-                <option value="time_asc">{t("resources.sortTimeAsc")}</option>
                 <option value="rarity_desc">{t("resources.sortRarityDesc")}</option>
               </select>
             </div>

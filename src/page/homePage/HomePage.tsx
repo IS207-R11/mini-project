@@ -17,15 +17,19 @@ import { useI18n } from "@/context/I18nContext";
 import { useTimeTheme } from "@/context/TimeThemeContext";
 import type { ThemeMode } from "@/context/TimeThemeContext";
 import { useSavedFoods } from "@/context/SavedFoodsContext";
-import type { FoodItem, Rarity, DietaryType, HealthGoal, MealTime } from "@/types/food";
-import foodsDataRaw from "@/data/foods.json";
+import type {
+  FoodItem,
+  Rarity,
+  DietaryFilter,
+  PriceFilter,
+  SessionFilter,
+} from "@/types/food";
+import { allFoods } from "@/lib/foodData";
 import { BoosterPack } from "@/components/gacha/BoosterPack";
 import { RevealAnimation } from "@/components/gacha/RevealAnimation";
 import { FoodFlashCard } from "@/components/food/FoodFlashCard";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-
-const allFoods: FoodItem[] = foodsDataRaw as FoodItem[];
 
 type GachaState = "pack" | "opening" | "revealed";
 
@@ -36,63 +40,79 @@ export const HomePage: React.FC = () => {
     period,
     themeMode,
     setThemeMode,
-    recommendedMealTime,
+    recommendedSession,
   } = useTimeTheme();
   const { saveMultiple } = useSavedFoods();
 
-  // Filters
+  // Filters State
   const [dishCount, setDishCount] = useState<number>(3);
-  const [selectedDiet, setSelectedDiet] = useState<DietaryType>("all");
-  const [selectedGoal, setSelectedGoal] = useState<HealthGoal | "all">("all");
-  const [selectedMealTime, setSelectedMealTime] = useState<MealTime | "auto">("auto");
+  const [selectedDiet, setSelectedDiet] = useState<DietaryFilter>("all");
+  const [selectedPrice, setSelectedPrice] = useState<PriceFilter>("all");
+  const [selectedSession, setSelectedSession] = useState<SessionFilter>("auto");
 
-  // Gacha states
+  // Gacha Lifecycle
   const [gachaState, setGachaState] = useState<GachaState>("pack");
   const [revealedDishes, setRevealedDishes] = useState<FoodItem[]>([]);
   const [highestRarity, setHighestRarity] = useState<Rarity>("C");
   const [savedAllSuccess, setSavedAllSuccess] = useState(false);
 
-  // Active meal period logic
-  const effectiveMealTime =
-    selectedMealTime === "auto" ? recommendedMealTime : selectedMealTime;
+  // Active meal session determination
+  const effectiveSession =
+    selectedSession === "auto" ? recommendedSession : selectedSession;
 
-  // Filtered pool based on preferences
+  // Filtered candidates pool
   const candidatePool = useMemo(() => {
     return allFoods.filter((food) => {
-      // Meal time matching: if auto or specific meal time
-      if (effectiveMealTime !== "all" && !food.mealTime.includes(effectiveMealTime) && !food.mealTime.includes("all")) {
-        // Soft match: prioritize, but if pool is small, allow fallback
+      // Session matching
+      if (
+        effectiveSession !== "all" &&
+        !food.sessions.includes(effectiveSession)
+      ) {
         return false;
       }
 
       // Dietary filter
-      if (selectedDiet !== "all") {
-        if (selectedDiet === "vegan" && food.dietaryType !== "vegan") return false;
-        if (selectedDiet === "vegetarian" && !["vegetarian", "vegan"].includes(food.dietaryType)) return false;
-        if (selectedDiet === "meat" && food.dietaryType !== "meat") return false;
-        if (selectedDiet === "eatclean" && food.dietaryType !== "eatclean") return false;
-        if (selectedDiet === "keto" && !["keto", "lowcarb"].includes(food.dietaryType)) return false;
+      if (selectedDiet === "veg" && !food.veg) {
+        return false;
       }
-
-      // Goal filter
-      if (selectedGoal !== "all" && !food.goal.includes(selectedGoal)) {
+      if (selectedDiet === "meat" && food.veg) {
         return false;
       }
 
+      // Price filter
+      if (selectedPrice === "under_50" && food.price >= 50) return false;
+      if (
+        selectedPrice === "50_80" &&
+        (food.price < 50 || food.price > 80)
+      ) {
+        return false;
+      }
+      if (
+        selectedPrice === "80_120" &&
+        (food.price <= 80 || food.price > 120)
+      ) {
+        return false;
+      }
+      if (selectedPrice === "above_120" && food.price <= 120) return false;
+
       return true;
     });
-  }, [effectiveMealTime, selectedDiet, selectedGoal]);
+  }, [effectiveSession, selectedDiet, selectedPrice]);
 
-  // Fallback pool in case candidatePool is too small
+  // Safe pool fallback
   const safePool = useMemo(() => {
     if (candidatePool.length >= dishCount) return candidatePool;
-    return allFoods;
-  }, [candidatePool, dishCount]);
+    // If strict pool has too few items, relax price / diet fallback
+    const relaxed = allFoods.filter((f) =>
+      effectiveSession !== "all" ? f.sessions.includes(effectiveSession) : true
+    );
+    return relaxed.length >= dishCount ? relaxed : allFoods;
+  }, [candidatePool, effectiveSession, dishCount]);
 
   // Gacha draw function
   const handleStartGacha = useCallback(() => {
     const pool = [...safePool];
-    // Shuffle pool with Fisher-Yates
+    // Fisher-Yates shuffle
     for (let i = pool.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [pool[i], pool[j]] = [pool[j], pool[i]];
@@ -101,7 +121,7 @@ export const HomePage: React.FC = () => {
     const selected = pool.slice(0, dishCount);
     setRevealedDishes(selected);
 
-    // Compute highest rarity for dramatic reveal
+    // Compute highest rarity for reveal animation
     const rarities: Rarity[] = ["SSR", "SR", "UC", "C"];
     let maxRarity: Rarity = "C";
     for (const r of rarities) {
@@ -155,15 +175,15 @@ export const HomePage: React.FC = () => {
             </div>
             <div>
               <div className="flex items-center justify-center md:justify-start gap-2">
-                <span className="text-xs font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">
+                <span suppressHydrationWarning className="text-xs font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">
                   {t(`time.${period}Greeting`)}
                 </span>
-                <span className="text-[11px] text-muted-foreground font-mono bg-muted/60 px-2 py-0.5 rounded-full">
+                <span suppressHydrationWarning className="text-[11px] text-muted-foreground font-mono bg-muted/60 px-2 py-0.5 rounded-full">
                   <FontAwesomeIcon icon={faClock} className="mr-1 text-xs" />
                   {currentTime}
                 </span>
               </div>
-              <p className="text-xs text-muted-foreground font-medium mt-0.5">
+              <p suppressHydrationWarning className="text-xs text-muted-foreground font-medium mt-0.5">
                 {t(`time.${period}Sub`)}
               </p>
             </div>
@@ -175,7 +195,7 @@ export const HomePage: React.FC = () => {
               onClick={() => setThemeMode("auto")}
               className={`px-3 py-1 rounded-full text-xs font-medium transition-all ${
                 themeMode === "auto"
-                  ? "bg-white dark:bg-emerald-800 text-emerald-800 dark:text-emerald-100 shadow-xs"
+                  ? "bg-white dark:bg-emerald-800 text-emerald-800 dark:text-emerald-100 shadow-xs font-bold"
                   : "text-muted-foreground hover:text-foreground"
               }`}
             >
@@ -187,7 +207,7 @@ export const HomePage: React.FC = () => {
                 onClick={() => setThemeMode(mode)}
                 className={`px-2.5 py-1 rounded-full text-xs font-medium transition-all capitalize ${
                   themeMode === mode
-                    ? "bg-white dark:bg-emerald-800 text-emerald-800 dark:text-emerald-100 shadow-xs"
+                    ? "bg-white dark:bg-emerald-800 text-emerald-800 dark:text-emerald-100 shadow-xs font-bold"
                     : "text-muted-foreground hover:text-foreground"
                 }`}
               >
@@ -213,11 +233,11 @@ export const HomePage: React.FC = () => {
           </p>
         </div>
 
-        {/* ================= FILTER PILLS BAR ================= */}
+        {/* ================= FILTER BAR ================= */}
         <div className="max-w-4xl mx-auto mb-10 p-4 sm:p-5 rounded-3xl bg-card/70 dark:bg-card/40 border border-emerald-200/60 dark:border-emerald-800/40 shadow-sm backdrop-blur-md space-y-4">
           <div className="flex items-center gap-2 text-xs font-bold text-emerald-800 dark:text-emerald-300 uppercase tracking-wider">
             <FontAwesomeIcon icon={faFilter} className="text-emerald-600" />
-            <span>Tùy Chỉnh Gợi Ý Món Ăn</span>
+            <span>Tùy Chỉnh Gói Gợi Ý Món Ăn</span>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
@@ -243,66 +263,64 @@ export const HomePage: React.FC = () => {
               </div>
             </div>
 
-            {/* Dietary Type Filter */}
+            {/* Dietary Filter */}
             <div className="space-y-1.5">
               <label className="text-xs font-semibold text-muted-foreground">
                 {t("home.filterDietary")}
               </label>
               <select
                 value={selectedDiet}
-                onChange={(e) => setSelectedDiet(e.target.value as DietaryType)}
-                className="w-full bg-background border border-border/80 text-foreground text-xs font-medium rounded-xl p-2 focus:ring-2 focus:ring-emerald-500 focus:outline-hidden"
+                onChange={(e) => setSelectedDiet(e.target.value as DietaryFilter)}
+                className="w-full bg-background border border-border/80 text-foreground text-xs font-medium rounded-xl p-2.5 focus:ring-2 focus:ring-emerald-500 focus:outline-hidden shadow-xs"
               >
-                <option value="all">{t("filter.all")}</option>
-                <option value="eatclean">{t("filter.eatclean")}</option>
-                <option value="vegetarian">{t("filter.vegetarian")}</option>
-                <option value="vegan">{t("filter.vegan")}</option>
+                <option value="all">{t("filter.allDiet")}</option>
+                <option value="veg">{t("filter.veg")}</option>
                 <option value="meat">{t("filter.meat")}</option>
-                <option value="keto">{t("filter.keto")}</option>
               </select>
             </div>
 
-            {/* Health Goal */}
+            {/* Price Filter */}
             <div className="space-y-1.5">
               <label className="text-xs font-semibold text-muted-foreground">
-                {t("home.filterGoal")}
+                {t("home.filterPrice")}
               </label>
               <select
-                value={selectedGoal}
-                onChange={(e) => setSelectedGoal(e.target.value as HealthGoal | "all")}
-                className="w-full bg-background border border-border/80 text-foreground text-xs font-medium rounded-xl p-2 focus:ring-2 focus:ring-emerald-500 focus:outline-hidden"
+                value={selectedPrice}
+                onChange={(e) => setSelectedPrice(e.target.value as PriceFilter)}
+                className="w-full bg-background border border-border/80 text-foreground text-xs font-medium rounded-xl p-2.5 focus:ring-2 focus:ring-emerald-500 focus:outline-hidden shadow-xs"
               >
-                <option value="all">{t("filter.all")}</option>
-                <option value="balanced">{t("filter.balanced")}</option>
-                <option value="muscle_gain">{t("filter.muscle_gain")}</option>
-                <option value="weight_loss">{t("filter.weight_loss")}</option>
-                <option value="detox">{t("filter.detox")}</option>
+                <option value="all">{t("filter.allPrice")}</option>
+                <option value="under_50">{t("filter.under50")}</option>
+                <option value="50_80">{t("filter.price50_80")}</option>
+                <option value="80_120">{t("filter.price80_120")}</option>
+                <option value="above_120">{t("filter.above120")}</option>
               </select>
             </div>
 
-            {/* Meal Time Period */}
+            {/* Meal Session Filter */}
             <div className="space-y-1.5">
               <label className="text-xs font-semibold text-muted-foreground">
-                {t("home.filterMealTime")}
+                {t("home.filterSession")}
               </label>
               <select
-                value={selectedMealTime}
-                onChange={(e) => setSelectedMealTime(e.target.value as MealTime | "auto")}
-                className="w-full bg-background border border-border/80 text-foreground text-xs font-medium rounded-xl p-2 focus:ring-2 focus:ring-emerald-500 focus:outline-hidden"
+                value={selectedSession}
+                onChange={(e) => setSelectedSession(e.target.value as SessionFilter)}
+                className="w-full bg-background border border-border/80 text-foreground text-xs font-medium rounded-xl p-2.5 focus:ring-2 focus:ring-emerald-500 focus:outline-hidden shadow-xs"
               >
                 <option value="auto">
-                  {t("filter.auto")} ({t(`filter.${recommendedMealTime}`)})
+                  {t("filter.auto")} ({recommendedSession})
                 </option>
-                <option value="breakfast">{t("filter.breakfast")}</option>
-                <option value="lunch">{t("filter.lunch")}</option>
-                <option value="afternoon">{t("filter.afternoon")}</option>
-                <option value="dinner">{t("filter.dinner")}</option>
+                <option value="Sáng sớm">{t("filter.morningSession")}</option>
+                <option value="Giữa trưa">{t("filter.middaySession")}</option>
+                <option value="Chiều">{t("filter.afternoonSession")}</option>
+                <option value="Tối">{t("filter.nightSession")}</option>
+                <option value="all">{t("filter.all")}</option>
               </select>
             </div>
           </div>
         </div>
 
-        {/* ================= CENTRAL GACHA AREA ================= */}
+        {/* ================= CENTRAL GACHA BOOSTER PACK AREA ================= */}
         {gachaState === "pack" && (
           <div className="py-4 flex flex-col items-center justify-center">
             <BoosterPack
@@ -312,7 +330,7 @@ export const HomePage: React.FC = () => {
           </div>
         )}
 
-        {/* ================= REVEALED RESULTS GRID ================= */}
+        {/* ================= REVEALED RESULTS FLASHCARDS GRID ================= */}
         {gachaState === "revealed" && (
           <div className="space-y-8 animate-in fade-in duration-500">
             {/* Header with count and instructions */}
@@ -330,7 +348,7 @@ export const HomePage: React.FC = () => {
               </div>
 
               {/* Action Buttons */}
-              <div className="flex flex-wrap items-center gap-2.5">
+              <div className="flex flex-wrap items-center gap-2.5 justify-center sm:justify-end">
                 <Button
                   variant="outline"
                   size="sm"
@@ -347,9 +365,14 @@ export const HomePage: React.FC = () => {
                   onClick={handleSaveAll}
                   className="rounded-full text-xs font-semibold gap-1.5 bg-emerald-600 hover:bg-emerald-500 text-white shadow-sm"
                 >
-                  <FontAwesomeIcon icon={savedAllSuccess ? faCheck : faBookmark} className="text-xs" />
+                  <FontAwesomeIcon
+                    icon={savedAllSuccess ? faCheck : faBookmark}
+                    className="text-xs"
+                  />
                   <span>
-                    {savedAllSuccess ? t("home.btnSavedAllSuccess") : t("home.btnSaveAll")}
+                    {savedAllSuccess
+                      ? t("home.btnSavedAllSuccess")
+                      : t("home.btnSaveAll")}
                   </span>
                 </Button>
 
@@ -365,11 +388,11 @@ export const HomePage: React.FC = () => {
               </div>
             </div>
 
-            {/* Flashcards Grid (Inspired directly by Tham khảo 2.png) */}
+            {/* Flashcards Grid */}
             <div
               className={`grid gap-6 justify-items-center ${
                 revealedDishes.length === 1
-                  ? "grid-cols-1 max-w-md mx-auto"
+                  ? "grid-cols-1 max-w-sm mx-auto"
                   : revealedDishes.length === 3
                     ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
                     : "grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5"
