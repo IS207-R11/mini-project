@@ -144,14 +144,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenSaved }) => {
                   <span className="hidden sm:inline capitalize">
                     {timePeriodLabels[period] || period}
                   </span>
-                  <span className="text-[11px] text-muted-foreground font-mono hidden md:inline">
+                  <span suppressHydrationWarning className="text-[11px] text-muted-foreground font-mono hidden md:inline">
                     {currentTime}
                   </span>
                 </Button>
               }
             />
             <DropdownMenuContent align="end" className="w-56">
-              <DropdownMenuLabel className="text-xs text-muted-foreground">
+              <DropdownMenuLabel suppressHydrationWarning className="text-xs text-muted-foreground">
                 {t("nav.theme")} ({currentTime})
               </DropdownMenuLabel>
               <DropdownMenuItem

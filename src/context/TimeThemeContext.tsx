@@ -1,7 +1,8 @@
 "use client";
 
 import React, { createContext, useContext, useEffect, useState, useMemo, useCallback } from "react";
-import type { TimePeriod, MealTime } from "@/types/food";
+import type { TimePeriod, MealSession } from "@/types/food";
+import { periodToSession } from "@/lib/foodData";
 
 export type ThemeMode = "auto" | TimePeriod;
 
@@ -11,7 +12,8 @@ interface TimeThemeContextType {
   period: TimePeriod;
   themeMode: ThemeMode;
   setThemeMode: (mode: ThemeMode) => void;
-  recommendedMealTime: MealTime;
+  recommendedSession: MealSession;
+  isMounted: boolean;
 }
 
 const TimeThemeContext = createContext<TimeThemeContextType | undefined>(undefined);
@@ -23,25 +25,14 @@ export function getPeriodFromHour(hour: number): TimePeriod {
   return "night";
 }
 
-export function getMealTimeFromPeriod(period: TimePeriod): MealTime {
-  switch (period) {
-    case "morning":
-      return "breakfast";
-    case "midday":
-      return "lunch";
-    case "afternoon":
-      return "afternoon";
-    case "night":
-      return "dinner";
-  }
-}
-
 export const TimeThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [themeMode, setThemeModeState] = useState<ThemeMode>("auto");
   const [dateObj, setDateObj] = useState<Date>(() => new Date());
+  const [isMounted, setIsMounted] = useState(false);
 
   // Restore saved theme on mount (client-side only)
   useEffect(() => {
+    setIsMounted(true);
     try {
       const saved = localStorage.getItem("foodlife_theme_mode");
       if (saved && ["auto", "morning", "midday", "afternoon", "night"].includes(saved)) {
@@ -81,15 +72,21 @@ export const TimeThemeProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   }, [activePeriod]);
 
   const currentTime = useMemo(() => {
-    return dateObj.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+    const hours = String(dateObj.getHours()).padStart(2, "0");
+    const minutes = String(dateObj.getMinutes()).padStart(2, "0");
+    return `${hours}:${minutes}`;
   }, [dateObj]);
 
   const currentDate = useMemo(() => {
-    return dateObj.toLocaleDateString(undefined, { weekday: "short", day: "numeric", month: "short" });
+    return dateObj.toLocaleDateString("vi-VN", {
+      weekday: "short",
+      day: "numeric",
+      month: "numeric",
+    });
   }, [dateObj]);
 
-  const recommendedMealTime = useMemo(() => {
-    return getMealTimeFromPeriod(activePeriod);
+  const recommendedSession = useMemo(() => {
+    return periodToSession(activePeriod);
   }, [activePeriod]);
 
   const value = useMemo(
@@ -99,9 +96,10 @@ export const TimeThemeProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       period: activePeriod,
       themeMode,
       setThemeMode,
-      recommendedMealTime,
+      recommendedSession,
+      isMounted,
     }),
-    [currentTime, currentDate, activePeriod, themeMode, setThemeMode, recommendedMealTime]
+    [currentTime, currentDate, activePeriod, themeMode, setThemeMode, recommendedSession, isMounted]
   );
 
   return <TimeThemeContext.Provider value={value}>{children}</TimeThemeContext.Provider>;
