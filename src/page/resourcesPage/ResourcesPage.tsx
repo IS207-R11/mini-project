@@ -18,6 +18,7 @@ import type {
 } from "@/types/food";
 import { allFoods } from "@/lib/foodData";
 import { FoodFlashCard } from "@/components/food/FoodFlashCard";
+import { VirtualFoodGrid } from "@/components/food/VirtualFoodGrid";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
@@ -282,13 +283,9 @@ export const ResourcesPage: React.FC = () => {
           </div>
         </div>
 
-        {/* ================= FOOD FLASHCARDS GRID ================= */}
+        {/* ================= FOOD FLASHCARDS VIRTUAL GRID ================= */}
         {filteredFoods.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
-            {filteredFoods.map((food) => (
-              <FoodFlashCard key={food.id} food={food} />
-            ))}
-          </div>
+          <VirtualFoodGrid foods={filteredFoods} />
         ) : (
           <div className="py-20 text-center space-y-4 rounded-3xl bg-card/60 border border-dashed border-border/80">
             <div className="w-16 h-16 mx-auto rounded-full bg-muted flex items-center justify-center text-muted-foreground text-2xl">
