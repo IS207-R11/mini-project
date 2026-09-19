@@ -269,7 +269,7 @@ export const ResourcesExplorer: React.FC<ResourcesExplorerProps> = ({
 
       {/* ================= NATURAL FLOW FOOD FLASHCARDS GRID ================= */}
       {filteredFoods.length > 0 ? (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-3 sm:gap-4 justify-items-center">
+        <div className="flex flex-wrap justify-center gap-3 sm:gap-3.5 mx-auto max-w-6xl">
           {filteredFoods.map((food) => (
             <FoodFlashCard key={food.id} food={food} />
           ))}

@@ -309,15 +309,7 @@ export const GachaGame: React.FC<GachaGameProps> = ({ allFoods = defaultFoods })
           </div>
 
           {/* Flashcards Grid */}
-          <div
-            className={`grid gap-4 sm:gap-6 justify-items-center ${
-              revealedDishes.length === 1
-                ? "grid-cols-1 max-w-[220px] mx-auto"
-                : revealedDishes.length === 3
-                  ? "grid-cols-1 sm:grid-cols-3 max-w-3xl mx-auto"
-                  : "grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 max-w-5xl mx-auto"
-            }`}
-          >
+          <div className="flex flex-wrap justify-center gap-3 sm:gap-4 mx-auto max-w-5xl">
             {revealedDishes.map((food) => (
               <FoodFlashCard key={food.id} food={food} />
             ))}
