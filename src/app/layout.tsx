@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "@/index.css";
-import { AppShell } from "@/components/layout/AppShell";
+import { AppProviders } from "@/components/providers/AppProviders";
+import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/layout/Footer";
 
 export const metadata: Metadata = {
   title: "FoodLife - Khám phá món ăn & Dinh dưỡng",
@@ -15,8 +17,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="vi" suppressHydrationWarning>
-      <body className="min-h-screen font-sans antialiased">
-        <AppShell>{children}</AppShell>
+      <body className="min-h-screen font-sans antialiased flex flex-col bg-background text-foreground selection:bg-emerald-200 selection:text-emerald-900 dark:selection:bg-emerald-800 dark:selection:text-emerald-100">
+        <AppProviders>
+          <Navbar />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </AppProviders>
       </body>
     </html>
   );

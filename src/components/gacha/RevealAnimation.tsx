@@ -81,7 +81,7 @@ export const RevealAnimation: React.FC<RevealAnimationProps> = ({
 
         {/* Small Discovery Tag */}
         <span className="text-xs sm:text-sm font-semibold tracking-[0.3em] uppercase text-white/80 mb-2">
-          A NEW DISCOVERY
+          KHÁM PHÁ MỚI
         </span>
 
         {/* Big Radiant Rarity Typography */}
@@ -95,7 +95,7 @@ export const RevealAnimation: React.FC<RevealAnimationProps> = ({
         <div className="flex items-center gap-3 mt-4">
           <span className="text-xs text-white/60">✦</span>
           <span className="text-lg sm:text-2xl font-bold tracking-[0.25em] uppercase text-white drop-shadow-md">
-            DISCOVERED
+            ĐÃ XUẤT HIỆN
           </span>
           <span className="text-xs text-white/60">✦</span>
         </div>

@@ -10,7 +10,6 @@ import {
   faCoins,
   faLeaf,
 } from "@fortawesome/free-solid-svg-icons";
-import { useI18n } from "@/context/I18nContext";
 import { useSavedFoods } from "@/context/SavedFoodsContext";
 import { formatPrice } from "@/lib/foodData";
 import {
@@ -30,7 +29,6 @@ interface SavedSheetProps {
 }
 
 export const SavedSheet: React.FC<SavedSheetProps> = ({ open, onOpenChange }) => {
-  const { t } = useI18n();
   const {
     savedFoods,
     removeFood,
@@ -49,14 +47,14 @@ export const SavedSheet: React.FC<SavedSheetProps> = ({ open, onOpenChange }) =>
           <div className="flex items-center justify-between">
             <SheetTitle className="text-lg font-bold flex items-center gap-2">
               <FontAwesomeIcon icon={faUtensils} className="text-emerald-600" />
-              <span>{t("saved.title")}</span>
+              <span>Món Đã Lưu</span>
               <Badge className="bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 font-semibold">
                 {savedFoods.length}
               </Badge>
             </SheetTitle>
           </div>
           <SheetDescription className="text-xs text-muted-foreground">
-            {t("saved.subtitle")}
+            Bộ sưu tập thực đơn dinh dưỡng cá nhân của bạn
           </SheetDescription>
         </SheetHeader>
 
@@ -64,20 +62,20 @@ export const SavedSheet: React.FC<SavedSheetProps> = ({ open, onOpenChange }) =>
         {savedFoods.length > 0 && (
           <div className="mx-5 my-3 p-3.5 bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-950/40 dark:to-teal-950/30 rounded-2xl border border-emerald-200/60 dark:border-emerald-800/40 space-y-2">
             <span className="text-[11px] font-bold text-emerald-800 dark:text-emerald-300 uppercase tracking-wider block">
-              {t("saved.totalNutrition")}
+              Tổng Dinh Dưỡng & Chi Phí
             </span>
             <div className="grid grid-cols-3 gap-2 text-center">
               <div className="p-2 bg-white/70 dark:bg-black/30 rounded-xl">
                 <span className="text-[10px] text-muted-foreground flex items-center justify-center gap-1">
                   <FontAwesomeIcon icon={faFire} className="text-amber-500 text-xs" />
-                  {t("saved.totalCalories")}
+                  Tổng Calo
                 </span>
                 <span className="text-sm font-black text-foreground">{totalCalories} kcal</span>
               </div>
               <div className="p-2 bg-white/70 dark:bg-black/30 rounded-xl">
                 <span className="text-[10px] text-muted-foreground flex items-center justify-center gap-1">
                   <FontAwesomeIcon icon={faDumbbell} className="text-emerald-500 text-xs" />
-                  {t("saved.totalProtein")}
+                  Tổng Đạm
                 </span>
                 <span className="text-sm font-black text-emerald-600 dark:text-emerald-400">
                   {totalProtein} g
@@ -86,7 +84,7 @@ export const SavedSheet: React.FC<SavedSheetProps> = ({ open, onOpenChange }) =>
               <div className="p-2 bg-white/70 dark:bg-black/30 rounded-xl">
                 <span className="text-[10px] text-muted-foreground flex items-center justify-center gap-1">
                   <FontAwesomeIcon icon={faCoins} className="text-amber-600 text-xs" />
-                  {t("saved.totalCost")}
+                  Ước Tính Chi Phí
                 </span>
                 <span className="text-xs font-black text-amber-700 dark:text-amber-300 truncate block">
                   {formattedTotalCost}
@@ -103,9 +101,9 @@ export const SavedSheet: React.FC<SavedSheetProps> = ({ open, onOpenChange }) =>
               <div className="w-14 h-14 mx-auto rounded-full bg-emerald-50 dark:bg-emerald-950/60 flex items-center justify-center text-emerald-600 text-xl">
                 <FontAwesomeIcon icon={faUtensils} />
               </div>
-              <h4 className="text-base font-bold text-foreground">{t("saved.emptyTitle")}</h4>
+              <h4 className="text-base font-bold text-foreground">Chưa Có Món Ăn Nào Được Lưu</h4>
               <p className="text-xs text-muted-foreground max-w-xs mx-auto leading-relaxed">
-                {t("saved.emptyDesc")}
+                Hãy mở gói gợi ý ở Trang Chủ hoặc duyệt Thư Viện để lưu lại những món yêu thích của bạn nhé!
               </p>
             </div>
           ) : (
@@ -152,7 +150,7 @@ export const SavedSheet: React.FC<SavedSheetProps> = ({ open, onOpenChange }) =>
                     size="icon"
                     onClick={() => removeFood(food.id)}
                     className="h-8 w-8 text-muted-foreground hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40 rounded-full"
-                    title={t("saved.remove")}
+                    title="Bỏ lưu"
                   >
                     <FontAwesomeIcon icon={faTrashCan} className="text-xs" />
                   </Button>
@@ -172,14 +170,14 @@ export const SavedSheet: React.FC<SavedSheetProps> = ({ open, onOpenChange }) =>
               className="text-xs text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/50 hover:text-rose-700 rounded-xl"
             >
               <FontAwesomeIcon icon={faTrashCan} className="mr-1.5" />
-              {t("saved.btnClearAll")}
+              Xóa Tất Cả
             </Button>
             <Button
               size="sm"
               onClick={() => onOpenChange(false)}
               className="bg-emerald-600 text-white hover:bg-emerald-500 rounded-xl text-xs font-semibold px-5"
             >
-              {t("card.flipToFront")}
+              Đóng
             </Button>
           </SheetFooter>
         )}

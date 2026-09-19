@@ -3,7 +3,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLeaf, faBolt, faWandMagicSparkles } from "@fortawesome/free-solid-svg-icons";
-import { useI18n } from "@/context/I18nContext";
 import { Button } from "@/components/ui/button";
 
 interface BoosterPackProps {
@@ -17,8 +16,6 @@ export const BoosterPack: React.FC<BoosterPackProps> = ({
   isOpening = false,
   count = 3,
 }) => {
-  const { t } = useI18n();
-
   return (
     <div className="flex flex-col items-center justify-center py-6 select-none">
       {/* 2D Foil Booster Pack Container */}
@@ -49,7 +46,7 @@ export const BoosterPack: React.FC<BoosterPackProps> = ({
             </div>
             {/* Tear Notch Indicator */}
             <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1 text-[9px] font-bold text-emerald-800 dark:text-emerald-200 tracking-wider">
-              <span>TEAR</span>
+              <span>MỞ GÓI</span>
               <div className="w-2 h-0.5 bg-emerald-600 dark:bg-emerald-400" />
             </div>
           </div>
@@ -69,13 +66,13 @@ export const BoosterPack: React.FC<BoosterPackProps> = ({
             {/* Pack Title */}
             <div className="space-y-1">
               <span className="text-[10px] font-bold uppercase tracking-widest text-emerald-700 dark:text-emerald-400 bg-emerald-100 dark:bg-emerald-900/60 px-2.5 py-0.5 rounded-full">
-                FOODLIFE EDITION
+                PHIÊN BẢN FOODLIFE
               </span>
               <h3 className="text-xl sm:text-2xl font-black tracking-tight text-foreground">
-                {t("home.packTitle")}
+                Gói Ẩm Thực Hôm Nay
               </h3>
               <p className="text-xs text-muted-foreground font-medium max-w-[200px] mx-auto line-clamp-2">
-                {t("home.packDesc")}
+                Bao gồm các thẻ bài món ăn thơm ngon, chuẩn thông số dinh dưỡng và calo.
               </p>
             </div>
 
@@ -99,7 +96,7 @@ export const BoosterPack: React.FC<BoosterPackProps> = ({
               ))}
             </div>
             <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[8px] font-mono text-emerald-800 dark:text-emerald-300 uppercase tracking-widest">
-              100% HEALTHY
+              100% DINH DƯỠNG
             </span>
           </div>
         </div>
@@ -114,11 +111,11 @@ export const BoosterPack: React.FC<BoosterPackProps> = ({
           className="rounded-full px-8 py-6 text-base font-bold bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-500 hover:from-emerald-500 hover:to-teal-500 text-white shadow-lg shadow-emerald-600/30 hover:shadow-emerald-600/50 transition-all hover:scale-103 cursor-pointer"
         >
           <FontAwesomeIcon icon={faWandMagicSparkles} className="mr-2 text-amber-300" />
-          <span>{isOpening ? t("home.discoveredTitle") : t("home.btnOpenPack")}</span>
+          <span>{isOpening ? "Đang Mở Gói..." : "Mở Gói Ngay"}</span>
         </Button>
         <span className="text-xs text-muted-foreground flex items-center gap-1">
           <FontAwesomeIcon icon={faBolt} className="text-amber-500 text-[10px]" />
-          {t("home.packTearHint")}
+          Nhấn nút để mở gói khám phá
         </span>
       </div>
     </div>
