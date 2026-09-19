@@ -16,7 +16,7 @@ import type {
   Rarity,
 } from "@/types/food";
 import { allFoods as defaultFoods } from "@/lib/foodData";
-import { FoodFlashCard } from "@/components/food/FoodFlashCard";
+import { VirtualFoodGrid } from "@/components/food/VirtualFoodGrid";
 import { Button } from "@/components/ui/button";
 
 type SortOption =
@@ -267,13 +267,9 @@ export const ResourcesExplorer: React.FC<ResourcesExplorerProps> = ({
         </div>
       </div>
 
-      {/* ================= NATURAL FLOW FOOD FLASHCARDS GRID ================= */}
+      {/* ================= VIRTUAL FOOD FLASHCARDS GRID (10 ROWS) ================= */}
       {filteredFoods.length > 0 ? (
-        <div className="flex flex-wrap justify-center gap-3 sm:gap-3.5 mx-auto max-w-6xl">
-          {filteredFoods.map((food) => (
-            <FoodFlashCard key={food.id} food={food} />
-          ))}
-        </div>
+        <VirtualFoodGrid foods={filteredFoods} maxVisibleRows={10} />
       ) : (
         <div className="py-20 text-center space-y-4 rounded-3xl bg-card/60 border border-dashed border-border/80">
           <div className="w-16 h-16 mx-auto rounded-full bg-muted flex items-center justify-center text-muted-foreground text-2xl">
