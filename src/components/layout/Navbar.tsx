@@ -53,6 +53,7 @@ interface NavItem {
 const NAV_ITEMS: NavItem[] = [
   { href: "/", label: "Trang Chủ", segment: null },
   { href: "/tai-nguyen", label: "Tài Nguyên", segment: "tai-nguyen" },
+  { href: "/tai-lieu", label: "Tài Liệu", segment: "tai-lieu" },
 ];
 
 export const Navbar: React.FC = () => {
