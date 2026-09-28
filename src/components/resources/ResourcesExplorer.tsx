@@ -8,6 +8,7 @@ import {
   faArrowDownWideShort,
   faXmark,
   faRotateLeft,
+  faUtensils,
 } from "@fortawesome/free-solid-svg-icons";
 import type {
   FoodItem,
@@ -144,24 +145,24 @@ export const ResourcesExplorer: React.FC<ResourcesExplorerProps> = ({
   return (
     <div className="space-y-6 min-h-[calc(100vh-14rem)]">
       {/* ================= SEARCH & CONTROLS BAR ================= */}
-      <div className="p-4 sm:p-5 rounded-3xl bg-card/80 dark:bg-card/40 border border-emerald-200/60 dark:border-emerald-800/40 shadow-xs backdrop-blur-md space-y-3.5">
+      <div className="p-5 rounded-3xl bg-card text-card-foreground border border-border shadow-md backdrop-blur-md space-y-4">
         {/* Top Search Input */}
         <div className="relative w-full">
           <FontAwesomeIcon
             icon={faMagnifyingGlass}
-            className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground text-sm"
+            className="absolute left-4 top-1/2 -translate-y-1/2 text-secondary text-sm"
           />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Tìm theo tên món, mô tả, nguyên liệu..."
-            className="w-full pl-11 pr-10 py-2.5 bg-background border border-border/80 text-foreground text-sm rounded-2xl focus:ring-2 focus:ring-emerald-500 focus:outline-hidden transition-all shadow-xs"
+            placeholder="Tìm kiếm theo tên món, nguyên liệu, hương vị..."
+            className="w-full pl-11 pr-10 py-3 bg-background border border-border text-foreground text-sm rounded-2xl focus:ring-2 focus:ring-primary focus:outline-hidden transition-all shadow-xs placeholder:text-muted-foreground"
           />
           {searchQuery && (
             <button
               onClick={() => setSearchQuery("")}
-              className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground cursor-pointer"
             >
               <FontAwesomeIcon icon={faXmark} className="text-sm" />
             </button>
@@ -169,17 +170,17 @@ export const ResourcesExplorer: React.FC<ResourcesExplorerProps> = ({
         </div>
 
         {/* Filter & Sort Controls Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           {/* Session Filter */}
           <div className="space-y-1">
             <label className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-1">
-              <FontAwesomeIcon icon={faFilter} className="text-emerald-600 text-[10px]" />
+              <FontAwesomeIcon icon={faFilter} className="text-secondary text-[10px]" />
               Buổi Ăn
             </label>
             <select
               value={selectedSession}
               onChange={(e) => setSelectedSession(e.target.value)}
-              className="w-full bg-background border border-border/80 text-foreground text-xs font-medium rounded-xl p-2 focus:ring-2 focus:ring-emerald-500 focus:outline-hidden shadow-xs"
+              className="w-full bg-background border border-border text-foreground text-xs font-semibold rounded-2xl p-2.5 focus:ring-2 focus:ring-primary focus:outline-hidden shadow-xs cursor-pointer"
             >
               <option value="all">Tất Cả Buổi</option>
               <option value="Sáng sớm">Sáng sớm</option>
@@ -197,7 +198,7 @@ export const ResourcesExplorer: React.FC<ResourcesExplorerProps> = ({
             <select
               value={selectedDiet}
               onChange={(e) => setSelectedDiet(e.target.value as DietaryFilter)}
-              className="w-full bg-background border border-border/80 text-foreground text-xs font-medium rounded-xl p-2 focus:ring-2 focus:ring-emerald-500 focus:outline-hidden shadow-xs"
+              className="w-full bg-background border border-border text-foreground text-xs font-semibold rounded-2xl p-2.5 focus:ring-2 focus:ring-primary focus:outline-hidden shadow-xs cursor-pointer"
             >
               <option value="all">Tất Cả Chế Độ</option>
               <option value="veg">🌱 Món Chay</option>
@@ -213,7 +214,7 @@ export const ResourcesExplorer: React.FC<ResourcesExplorerProps> = ({
             <select
               value={selectedPrice}
               onChange={(e) => setSelectedPrice(e.target.value as PriceFilter)}
-              className="w-full bg-background border border-border/80 text-foreground text-xs font-medium rounded-xl p-2 focus:ring-2 focus:ring-emerald-500 focus:outline-hidden shadow-xs"
+              className="w-full bg-background border border-border text-foreground text-xs font-semibold rounded-2xl p-2.5 focus:ring-2 focus:ring-primary focus:outline-hidden shadow-xs cursor-pointer"
             >
               <option value="all">Tất Cả Mức Giá</option>
               <option value="under_50">&lt; 50.000 ₫ (Tiết kiệm)</option>
@@ -228,14 +229,14 @@ export const ResourcesExplorer: React.FC<ResourcesExplorerProps> = ({
             <label className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-1">
               <FontAwesomeIcon
                 icon={faArrowDownWideShort}
-                className="text-emerald-600 text-[10px]"
+                className="text-secondary text-[10px]"
               />
               Sắp xếp
             </label>
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as SortOption)}
-              className="w-full bg-background border border-border/80 text-foreground text-xs font-medium rounded-xl p-2 focus:ring-2 focus:ring-emerald-500 focus:outline-hidden shadow-xs"
+              className="w-full bg-background border border-border text-foreground text-xs font-semibold rounded-2xl p-2.5 focus:ring-2 focus:ring-primary focus:outline-hidden shadow-xs cursor-pointer"
             >
               <option value="name">Tên (A - Z)</option>
               <option value="price_asc">Giá: Thấp đến Cao</option>
@@ -249,43 +250,43 @@ export const ResourcesExplorer: React.FC<ResourcesExplorerProps> = ({
         </div>
 
         {/* Results Count & Reset Filter Badge */}
-        <div className="flex items-center justify-between pt-1.5 border-t border-border/40 text-xs">
-          <span className="text-muted-foreground font-medium">
-            Tìm thấy {filteredFoods.length} món ăn
+        <div className="flex items-center justify-between pt-2 border-t border-border/60 text-xs">
+          <span className="text-muted-foreground font-semibold">
+            Hiển thị <strong>{filteredFoods.length}</strong> món ăn
           </span>
           {hasActiveFilters && (
             <Button
               variant="ghost"
               size="sm"
               onClick={handleResetFilters}
-              className="h-6 text-xs text-rose-600 hover:text-rose-700 hover:bg-rose-50 dark:hover:bg-rose-950/40 rounded-full px-2.5"
+              className="h-7 text-xs text-destructive hover:bg-destructive/10 rounded-full px-3"
             >
-              <FontAwesomeIcon icon={faRotateLeft} className="mr-1 text-[10px]" />
+              <FontAwesomeIcon icon={faRotateLeft} className="mr-1.5 text-[10px]" />
               Đặt Lại Bộ Lọc
             </Button>
           )}
         </div>
       </div>
 
-      {/* ================= VIRTUAL FOOD FLASHCARDS GRID (10 ROWS) ================= */}
+      {/* ================= VIRTUAL FOOD FLASHCARDS GRID ================= */}
       {filteredFoods.length > 0 ? (
         <VirtualFoodGrid foods={filteredFoods} maxVisibleRows={10} />
       ) : (
-        <div className="py-20 text-center space-y-4 rounded-3xl bg-card/60 border border-dashed border-border/80">
-          <div className="w-16 h-16 mx-auto rounded-full bg-muted flex items-center justify-center text-muted-foreground text-2xl">
-            <FontAwesomeIcon icon={faMagnifyingGlass} />
+        <div className="py-20 text-center space-y-4 rounded-3xl bg-card border border-dashed border-border p-8">
+          <div className="w-16 h-16 mx-auto rounded-3xl bg-muted flex items-center justify-center text-muted-foreground text-2xl">
+            <FontAwesomeIcon icon={faUtensils} />
           </div>
-          <h3 className="text-lg font-bold text-foreground">
+          <h3 className="text-lg text-foreground font-bold">
             Chưa tìm thấy món ăn phù hợp
           </h3>
           <p className="text-xs text-muted-foreground max-w-sm mx-auto leading-relaxed">
-            Hãy thử thay đổi từ khóa hoặc đặt lại bộ lọc để khám phá thêm nhiều món ngon khác.
+            Hãy thử điều chỉnh từ khóa tìm kiếm hoặc đặt lại các tiêu chí lọc để khám phá thêm món ngon.
           </p>
           <Button
             variant="outline"
             size="sm"
             onClick={handleResetFilters}
-            className="rounded-full text-xs font-semibold mt-2 border-emerald-300 text-emerald-800 dark:text-emerald-300"
+            className="rounded-full text-xs font-bold mt-2 border-border"
           >
             Đặt Lại Bộ Lọc
           </Button>

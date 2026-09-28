@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useMemo, useCallback } from "react";
+import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faRotate,
@@ -8,6 +9,7 @@ import {
   faArrowLeft,
   faCheck,
   faFilter,
+  faStar,
 } from "@fortawesome/free-solid-svg-icons";
 import { useTimeTheme } from "@/context/TimeThemeContext";
 import { useSavedFoods } from "@/context/SavedFoodsContext";
@@ -92,7 +94,6 @@ export const GachaGame: React.FC<GachaGameProps> = ({ allFoods = defaultFoods })
   // Safe pool fallback
   const safePool = useMemo(() => {
     if (candidatePool.length >= dishCount) return candidatePool;
-    // If strict pool has too few items, relax price / diet fallback
     const relaxed = allFoods.filter((f) =>
       effectiveSession !== "all" ? f.sessions.includes(effectiveSession) : true
     );
@@ -154,27 +155,36 @@ export const GachaGame: React.FC<GachaGameProps> = ({ allFoods = defaultFoods })
       )}
 
       {/* ================= FILTER BAR ================= */}
-      <div className="max-w-4xl mx-auto mb-10 p-4 sm:p-5 rounded-3xl bg-card/70 dark:bg-card/40 border border-emerald-200/60 dark:border-emerald-800/40 shadow-sm backdrop-blur-md space-y-4">
-        <div className="flex items-center gap-2 text-xs font-bold text-emerald-800 dark:text-emerald-300 uppercase tracking-wider">
-          <FontAwesomeIcon icon={faFilter} className="text-emerald-600" />
-          <span>Tùy Chỉnh Gói Gợi Ý Món Ăn</span>
+      <motion.div
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="max-w-4xl mx-auto mb-10 p-5 rounded-3xl bg-card text-card-foreground border border-border shadow-md backdrop-blur-md space-y-4"
+      >
+        <div className="flex items-center justify-between text-xs font-bold uppercase tracking-wider">
+          <div className="flex items-center gap-2 text-foreground">
+            <FontAwesomeIcon icon={faFilter} className="text-secondary" />
+            <span>Tùy Chỉnh Gợi Ý Món Ăn</span>
+          </div>
+          <span className="text-[11px] text-muted-foreground font-normal normal-case">
+            Kho dữ liệu sẵn sàng ({safePool.length} món)
+          </span>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
           {/* Quantity Selector */}
           <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-muted-foreground">
+            <label className="text-xs font-bold text-muted-foreground">
               Số món gợi ý
             </label>
-            <div className="flex gap-1 bg-muted/60 p-1 rounded-xl">
+            <div className="flex gap-1 bg-muted/60 p-1 rounded-2xl border border-border/40">
               {[1, 3, 5].map((cnt) => (
                 <button
                   key={cnt}
                   onClick={() => setDishCount(cnt)}
-                  className={`flex-1 py-1.5 text-xs font-bold rounded-lg transition-all ${
+                  className={`flex-1 py-1.5 text-xs font-bold rounded-xl transition-all cursor-pointer ${
                     dishCount === cnt
-                      ? "bg-emerald-600 text-white shadow-xs"
-                      : "text-muted-foreground hover:text-foreground"
+                      ? "bg-primary text-primary-foreground shadow-xs"
+                      : "text-muted-foreground hover:text-foreground hover:bg-muted"
                   }`}
                 >
                   {cnt} món
@@ -185,13 +195,13 @@ export const GachaGame: React.FC<GachaGameProps> = ({ allFoods = defaultFoods })
 
           {/* Dietary Filter */}
           <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-muted-foreground">
+            <label className="text-xs font-bold text-muted-foreground">
               Chế độ ăn
             </label>
             <select
               value={selectedDiet}
               onChange={(e) => setSelectedDiet(e.target.value as DietaryFilter)}
-              className="w-full bg-background border border-border/80 text-foreground text-xs font-medium rounded-xl p-2.5 focus:ring-2 focus:ring-emerald-500 focus:outline-hidden shadow-xs"
+              className="w-full bg-background border border-border text-foreground text-xs font-medium rounded-2xl p-2.5 focus:ring-2 focus:ring-primary focus:outline-hidden shadow-xs cursor-pointer"
             >
               <option value="all">Tất Cả Chế Độ</option>
               <option value="veg">🌱 Món Chay</option>
@@ -201,13 +211,13 @@ export const GachaGame: React.FC<GachaGameProps> = ({ allFoods = defaultFoods })
 
           {/* Price Filter */}
           <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-muted-foreground">
+            <label className="text-xs font-bold text-muted-foreground">
               Khoảng giá
             </label>
             <select
               value={selectedPrice}
               onChange={(e) => setSelectedPrice(e.target.value as PriceFilter)}
-              className="w-full bg-background border border-border/80 text-foreground text-xs font-medium rounded-xl p-2.5 focus:ring-2 focus:ring-emerald-500 focus:outline-hidden shadow-xs"
+              className="w-full bg-background border border-border text-foreground text-xs font-medium rounded-2xl p-2.5 focus:ring-2 focus:ring-primary focus:outline-hidden shadow-xs cursor-pointer"
             >
               <option value="all">Tất Cả Mức Giá</option>
               <option value="under_50">&lt; 50.000 ₫ (Tiết kiệm)</option>
@@ -219,13 +229,13 @@ export const GachaGame: React.FC<GachaGameProps> = ({ allFoods = defaultFoods })
 
           {/* Meal Session Filter */}
           <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-muted-foreground">
-              Buổi ăn gợi ý
+            <label className="text-xs font-bold text-muted-foreground">
+              Khung giờ ăn
             </label>
             <select
               value={selectedSession}
               onChange={(e) => setSelectedSession(e.target.value as SessionFilter)}
-              className="w-full bg-background border border-border/80 text-foreground text-xs font-medium rounded-xl p-2.5 focus:ring-2 focus:ring-emerald-500 focus:outline-hidden shadow-xs"
+              className="w-full bg-background border border-border text-foreground text-xs font-medium rounded-2xl p-2.5 focus:ring-2 focus:ring-primary focus:outline-hidden shadow-xs cursor-pointer"
             >
               <option value="auto">
                 Tự Động Theo Giờ ({recommendedSession})
@@ -238,7 +248,7 @@ export const GachaGame: React.FC<GachaGameProps> = ({ allFoods = defaultFoods })
             </select>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* ================= CENTRAL GACHA BOOSTER PACK AREA ================= */}
       {gachaState === "pack" && (
@@ -252,18 +262,24 @@ export const GachaGame: React.FC<GachaGameProps> = ({ allFoods = defaultFoods })
 
       {/* ================= REVEALED RESULTS FLASHCARDS GRID ================= */}
       {gachaState === "revealed" && (
-        <div className="space-y-8 animate-in fade-in duration-500">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          className="space-y-8"
+        >
           {/* Header with count and instructions */}
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 rounded-2xl bg-card border border-border/60 shadow-xs">
-            <div className="space-y-0.5 text-center sm:text-left">
-              <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest">
-                Khám Phá Thành Công
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-3xl bg-card text-card-foreground border border-border shadow-md">
+            <div className="space-y-1 text-center sm:text-left">
+              <span className="text-[10px] font-black text-secondary uppercase tracking-widest flex items-center gap-1 justify-center sm:justify-start">
+                <FontAwesomeIcon icon={faStar} className="text-secondary" />
+                Gợi Ý Thành Công
               </span>
-              <h3 className="text-xl font-black text-foreground">
-                Đã tìm thấy {revealedDishes.length} món ăn dành riêng cho bạn
+              <h3 className="text-xl sm:text-2xl font-bold text-foreground">
+                Đã mở {revealedDishes.length} món ăn phù hợp với bạn
               </h3>
               <p className="text-xs text-muted-foreground">
-                Nhấn vào thẻ để lật xem bảng dinh dưỡng & nguyên liệu
+                Chạm vào thẻ bài để lật xem thông tin dinh dưỡng chi tiết
               </p>
             </div>
 
@@ -273,17 +289,16 @@ export const GachaGame: React.FC<GachaGameProps> = ({ allFoods = defaultFoods })
                 variant="outline"
                 size="sm"
                 onClick={handleStartGacha}
-                className="rounded-full text-xs font-semibold gap-1.5 border-emerald-300 dark:border-emerald-800 text-emerald-800 dark:text-emerald-300 hover:bg-emerald-50"
+                className="rounded-full text-xs font-bold gap-1.5 border-border bg-card text-foreground hover:bg-muted"
               >
-                <FontAwesomeIcon icon={faRotate} className="text-xs" />
+                <FontAwesomeIcon icon={faRotate} className="text-xs text-secondary" />
                 <span>Gợi Ý Lại</span>
               </Button>
 
               <Button
-                variant="default"
                 size="sm"
                 onClick={handleSaveAll}
-                className="rounded-full text-xs font-semibold gap-1.5 bg-emerald-600 hover:bg-emerald-500 text-white shadow-sm"
+                className="rounded-full text-xs font-bold gap-1.5 bg-primary text-primary-foreground hover:brightness-105 shadow-sm transition-all"
               >
                 <FontAwesomeIcon
                   icon={savedAllSuccess ? faCheck : faBookmark}
@@ -300,7 +315,7 @@ export const GachaGame: React.FC<GachaGameProps> = ({ allFoods = defaultFoods })
                 variant="ghost"
                 size="sm"
                 onClick={handleResetToPack}
-                className="rounded-full text-xs font-semibold text-muted-foreground hover:text-foreground gap-1.5"
+                className="rounded-full text-xs font-bold text-muted-foreground hover:text-foreground gap-1.5"
               >
                 <FontAwesomeIcon icon={faArrowLeft} className="text-xs" />
                 <span>Mở Gói Khác</span>
@@ -308,10 +323,23 @@ export const GachaGame: React.FC<GachaGameProps> = ({ allFoods = defaultFoods })
             </div>
           </div>
 
-          {/* Flashcards Grid */}
-          <div className="flex flex-wrap justify-center gap-3 sm:gap-4 mx-auto max-w-5xl">
-            {revealedDishes.map((food) => (
-              <FoodFlashCard key={food.id} food={food} />
+          {/* Flashcards Grid with Staggered Framer Motion */}
+          <div className="flex flex-wrap justify-center gap-4 sm:gap-6 mx-auto max-w-5xl">
+            {revealedDishes.map((food, idx) => (
+              <motion.div
+                key={food.id}
+                initial={{ opacity: 0, y: 30, scale: 0.9 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{
+                  duration: 0.4,
+                  delay: idx * 0.12,
+                  type: "spring",
+                  stiffness: 260,
+                  damping: 20,
+                }}
+              >
+                <FoodFlashCard food={food} />
+              </motion.div>
             ))}
           </div>
 
@@ -321,13 +349,13 @@ export const GachaGame: React.FC<GachaGameProps> = ({ allFoods = defaultFoods })
               variant="outline"
               size="lg"
               onClick={handleResetToPack}
-              className="rounded-full px-8 font-bold border-emerald-300 dark:border-emerald-800 text-emerald-800 dark:text-emerald-300 hover:bg-emerald-50 gap-2 shadow-sm"
+              className="rounded-full px-8 font-bold border-border bg-card text-foreground hover:bg-muted gap-2 shadow-sm"
             >
               <FontAwesomeIcon icon={faArrowLeft} />
               <span>Mở Gói Khác</span>
             </Button>
           </div>
-        </div>
+        </motion.div>
       )}
     </>
   );

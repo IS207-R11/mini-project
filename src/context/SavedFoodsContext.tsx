@@ -15,10 +15,10 @@ interface SavedFoodsContextType {
   totalProtein: number;
   totalCarbs: number;
   totalFat: number;
-  totalCost: number; // in thousands VND
+  totalCost: number;
 }
 
-const STORAGE_KEY = "foodlife_saved_meals_v2";
+const STORAGE_KEY = "an_gi_saved_meals_v1";
 
 const SavedFoodsContext = createContext<SavedFoodsContextType | undefined>(undefined);
 
@@ -26,7 +26,7 @@ export const SavedFoodsProvider: React.FC<{ children: React.ReactNode }> = ({ ch
   const [savedFoods, setSavedFoods] = useState<FoodItem[]>([]);
   const [isInitialized, setIsInitialized] = useState(false);
 
-  // Load from localStorage on client mount
+  // Load saved dishes from localStorage on client mount
   useEffect(() => {
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
@@ -43,7 +43,7 @@ export const SavedFoodsProvider: React.FC<{ children: React.ReactNode }> = ({ ch
     }
   }, []);
 
-  // Save back to localStorage whenever savedFoods changes after initialization
+  // Save back to localStorage
   useEffect(() => {
     if (!isInitialized) return;
     try {
@@ -87,7 +87,6 @@ export const SavedFoodsProvider: React.FC<{ children: React.ReactNode }> = ({ ch
   const saveMultiple = useCallback((foods: FoodItem[]) => {
     setSavedFoods((prev) => {
       const map = new Map<number | string, FoodItem>();
-      // Preserve newest first
       foods.forEach((f) => map.set(f.id, f));
       prev.forEach((f) => {
         if (!map.has(f.id)) map.set(f.id, f);
