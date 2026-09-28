@@ -32,28 +32,28 @@ const rarityColors: Record<
   }
 > = {
   SSR: {
-    badge: "bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 font-black",
-    border: "border-amber-400/80 dark:border-amber-400/90",
-    glow: "shadow-[0_0_12px_rgba(251,191,36,0.25)]",
-    gradient: "from-amber-500/10 via-transparent to-yellow-500/5",
+    badge: "bg-primary text-primary-foreground font-black",
+    border: "border-primary/70",
+    glow: "shadow-md",
+    gradient: "",
   },
   SR: {
-    badge: "bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-bold",
-    border: "border-purple-400/70 dark:border-purple-500/80",
-    glow: "shadow-[0_0_10px_rgba(168,85,247,0.2)]",
-    gradient: "from-purple-500/10 via-transparent to-indigo-500/5",
+    badge: "bg-accent text-accent-foreground font-bold",
+    border: "border-accent/70",
+    glow: "shadow-sm",
+    gradient: "",
   },
   UC: {
-    badge: "bg-gradient-to-r from-sky-500 to-blue-500 text-white font-semibold",
-    border: "border-sky-400/60 dark:border-sky-500/70",
+    badge: "bg-secondary text-secondary-foreground font-semibold",
+    border: "border-border",
     glow: "shadow-[0_0_8px_rgba(14,165,233,0.15)]",
-    gradient: "from-sky-500/10 via-transparent to-blue-500/5",
+    gradient: "",
   },
   C: {
-    badge: "bg-emerald-600 text-white font-medium",
-    border: "border-emerald-300 dark:border-emerald-800/80",
+    badge: "bg-muted text-muted-foreground font-medium",
+    border: "border-border",
     glow: "shadow-xs",
-    gradient: "from-emerald-500/5 via-transparent to-transparent",
+    gradient: "",
   },
 };
 
@@ -105,7 +105,7 @@ const FoodFlashCardComponent: React.FC<FoodFlashCardProps> = ({
 
   return (
     <div
-      className={`perspective-1000 w-[180px] sm:w-[190px] h-[215px] select-none cursor-pointer group shrink-0 ${className}`}
+      className={`perspective-1000 h-[250px] w-[200px] select-none cursor-pointer group shrink-0 sm:w-[210px] ${className}`}
       onClick={() => setIsFlipped(!isFlipped)}
     >
       <div
@@ -117,7 +117,7 @@ const FoodFlashCardComponent: React.FC<FoodFlashCardProps> = ({
         <div
           className={`absolute inset-0 w-full h-full backface-hidden rounded-2xl border ${
             rarityStyle.border
-          } ${rarityStyle.glow} bg-card text-card-foreground flex flex-col overflow-hidden shadow-xs hover:shadow-md transition-shadow bg-gradient-to-b ${
+          } ${rarityStyle.glow} bg-card text-card-foreground flex flex-col overflow-hidden transition-shadow ${
             rarityStyle.gradient
           } ${isFlipped ? "pointer-events-none" : "pointer-events-auto"}`}
         >
@@ -132,7 +132,7 @@ const FoodFlashCardComponent: React.FC<FoodFlashCardProps> = ({
               onError={() => setImgError(true)}
               className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/15 to-black/40" />
+            <div className="absolute inset-0 bg-foreground/35" />
 
             {/* Top Badges Over Image */}
             <div className="absolute top-1.5 left-1.5 right-1.5 flex items-center justify-between z-10">
@@ -143,7 +143,7 @@ const FoodFlashCardComponent: React.FC<FoodFlashCardProps> = ({
                   {food.rarity}
                 </Badge>
                 {food.veg && (
-                  <Badge className="bg-emerald-600/95 text-white text-[8px] px-1 py-0 rounded-full flex items-center gap-0.5">
+                  <Badge className="bg-primary/95 text-primary-foreground text-[8px] px-1 py-0 rounded-full flex items-center gap-0.5">
                     <FontAwesomeIcon icon={faLeaf} className="text-[7px]" />
                     <span>Chay</span>
                   </Badge>
@@ -156,8 +156,8 @@ const FoodFlashCardComponent: React.FC<FoodFlashCardProps> = ({
                 onClick={handleSave}
                 className={`h-5 w-5 rounded-full backdrop-blur-md transition-colors shrink-0 ${
                   saved
-                    ? "text-emerald-400 bg-emerald-950/80 border border-emerald-500/50"
-                    : "text-white/90 bg-black/40 hover:text-emerald-400 hover:bg-black/60"
+                    ? "bg-primary text-primary-foreground border border-primary"
+                    : "bg-card/80 text-card-foreground hover:bg-card"
                 }`}
                 title={saved ? "Đã lưu" : "Lưu món"}
               >
@@ -166,19 +166,19 @@ const FoodFlashCardComponent: React.FC<FoodFlashCardProps> = ({
             </div>
 
             {/* Bottom Details Over Image */}
-            <div className="absolute bottom-1 left-1.5 right-1.5 flex items-center justify-between text-[9px] text-white font-medium drop-shadow-xs">
+            <div className="absolute bottom-1 left-1.5 right-1.5 flex items-center justify-between text-[9px] text-card-foreground font-medium">
               {hasCalories ? (
-                <div className="flex items-center gap-1 bg-black/60 backdrop-blur-md px-1.5 py-0.2 rounded-full border border-white/20">
-                  <FontAwesomeIcon icon={faFire} className="text-amber-400 text-[8px]" />
+                <div className="flex items-center gap-1 bg-card/80 backdrop-blur-md px-1.5 py-0.2 rounded-full border border-border">
+                  <FontAwesomeIcon icon={faFire} className="text-primary text-[8px]" />
                   <span className="font-bold">{food.macros.calories}</span>
-                  <span className="text-[8px] text-white/80">kcal</span>
+                  <span className="text-[8px] text-muted-foreground">kcal</span>
                 </div>
               ) : (
                 <span />
               )}
 
               {hasPrice && (
-                <span className="text-[9px] font-bold text-amber-300 bg-black/60 backdrop-blur-md px-1.5 py-0.2 rounded-full border border-amber-400/30 flex items-center gap-0.5">
+                <span className="text-[9px] font-bold text-card-foreground bg-card/80 backdrop-blur-md px-1.5 py-0.2 rounded-full border border-border flex items-center gap-0.5">
                   <FontAwesomeIcon icon={faTag} className="text-[7px]" />
                   {formattedPrice}
                 </span>
@@ -189,12 +189,12 @@ const FoodFlashCardComponent: React.FC<FoodFlashCardProps> = ({
           {/* Card Body - Tight and snug */}
           <div className="p-2 flex-1 flex flex-col justify-between overflow-hidden gap-1">
             <div className="space-y-0.5">
-              <h3 className="text-[12.5px] font-bold text-foreground leading-tight truncate group-hover:text-emerald-600 transition-colors">
+              <h3 className="text-[13px] font-bold text-foreground leading-tight truncate group-hover:text-primary transition-colors">
                 {food.name}
               </h3>
 
               {food.sub && food.sub.trim() !== "" ? (
-                <div className="text-[10px] text-emerald-700 dark:text-emerald-400 font-medium truncate">
+                <div className="text-[10px] text-primary font-medium truncate">
                   {food.sub}
                 </div>
               ) : (
@@ -209,19 +209,19 @@ const FoodFlashCardComponent: React.FC<FoodFlashCardProps> = ({
 
             {/* Compact Macro Row */}
             {hasAnyMacro && (
-              <div className="flex items-center justify-between text-[9px] py-0.5 px-1.5 bg-muted/60 dark:bg-muted/40 rounded-md border border-border/40 font-medium">
+              <div className="flex items-center justify-between text-[9px] py-0.5 px-1.5 bg-muted/60 rounded-md border border-border/40 font-medium">
                 {hasProtein && (
-                  <span className="text-emerald-700 dark:text-emerald-400 font-semibold">
+                  <span className="text-primary font-semibold">
                     Đạm {food.macros.protein}g
                   </span>
                 )}
                 {hasCarbs && (
-                  <span className="text-amber-700 dark:text-amber-400 font-semibold">
+                  <span className="text-primary font-semibold">
                     Carbs {food.macros.carbs}g
                   </span>
                 )}
                 {hasFat && (
-                  <span className="text-sky-700 dark:text-sky-400 font-semibold">
+                  <span className="text-primary font-semibold">
                     Béo {food.macros.fat}g
                   </span>
                 )}
@@ -233,7 +233,7 @@ const FoodFlashCardComponent: React.FC<FoodFlashCardProps> = ({
               variant="outline"
               size="sm"
               onClick={handleFlip}
-              className="w-full h-5 text-[9px] font-semibold rounded-md border-emerald-300/80 dark:border-emerald-800 text-emerald-800 dark:text-emerald-300 hover:bg-emerald-100/60 dark:hover:bg-emerald-900/40 gap-1 px-1"
+              className="w-full h-6 text-[9px] font-semibold rounded-md gap-1 px-1"
             >
               <FontAwesomeIcon icon={faRotate} className="text-[8px]" />
               <span>Dinh dưỡng & Nguyên liệu</span>
@@ -245,20 +245,20 @@ const FoodFlashCardComponent: React.FC<FoodFlashCardProps> = ({
         <div
           className={`absolute inset-0 w-full h-full backface-hidden rotate-y-180 rounded-2xl border ${
             rarityStyle.border
-          } ${rarityStyle.glow} bg-card text-card-foreground flex flex-col p-2 overflow-hidden shadow-xs bg-gradient-to-b ${
+          } ${rarityStyle.glow} bg-card text-card-foreground flex flex-col p-2 overflow-hidden ${
             rarityStyle.gradient
           } ${!isFlipped ? "pointer-events-none" : "pointer-events-auto"}`}
         >
           {/* Header */}
           <div className="flex items-center justify-between pb-1 border-b border-border/50">
             <div className="overflow-hidden">
-              <span className="text-[7px] uppercase font-bold tracking-wider text-emerald-600 dark:text-emerald-400 block">
+              <span className="text-[7px] uppercase font-bold tracking-wider text-primary block">
                 Bảng Dinh Dưỡng
               </span>
               <h4 className="text-[11px] font-bold text-foreground truncate">{food.name}</h4>
             </div>
             {hasCalories && (
-              <span className="text-[9px] font-black text-amber-700 dark:text-amber-300 bg-amber-100/80 dark:bg-amber-950/60 px-1 py-0.2 rounded shrink-0">
+              <span className="text-[9px] font-black text-primary bg-secondary px-1 py-0.2 rounded shrink-0">
                 {food.macros.calories} kcal
               </span>
             )}
@@ -269,7 +269,7 @@ const FoodFlashCardComponent: React.FC<FoodFlashCardProps> = ({
             {hasProtein && (
               <div className="flex justify-between bg-muted/40 p-0.5 px-1 rounded">
                 <span className="text-muted-foreground">Đạm:</span>
-                <span className="font-bold text-emerald-700 dark:text-emerald-300">
+                <span className="font-bold text-primary">
                   {food.macros.protein}g
                 </span>
               </div>
@@ -277,7 +277,7 @@ const FoodFlashCardComponent: React.FC<FoodFlashCardProps> = ({
             {hasCarbs && (
               <div className="flex justify-between bg-muted/40 p-0.5 px-1 rounded">
                 <span className="text-muted-foreground">Carbs:</span>
-                <span className="font-bold text-amber-700 dark:text-amber-300">
+                <span className="font-bold text-primary">
                   {food.macros.carbs}g
                 </span>
               </div>
@@ -285,7 +285,7 @@ const FoodFlashCardComponent: React.FC<FoodFlashCardProps> = ({
             {hasFat && (
               <div className="flex justify-between bg-muted/40 p-0.5 px-1 rounded">
                 <span className="text-muted-foreground">Béo:</span>
-                <span className="font-bold text-sky-700 dark:text-sky-300">
+                <span className="font-bold text-primary">
                   {food.macros.fat}g
                 </span>
               </div>
@@ -293,7 +293,7 @@ const FoodFlashCardComponent: React.FC<FoodFlashCardProps> = ({
             {hasFiber && (
               <div className="flex justify-between bg-muted/40 p-0.5 px-1 rounded">
                 <span className="text-muted-foreground">Xơ:</span>
-                <span className="font-bold text-teal-700 dark:text-teal-300">
+                <span className="font-bold text-primary">
                   {food.macros.fiber}g
                 </span>
               </div>
@@ -337,7 +337,7 @@ const FoodFlashCardComponent: React.FC<FoodFlashCardProps> = ({
               variant="outline"
               size="sm"
               onClick={handleFlip}
-              className="flex-1 h-5 text-[8.5px] font-semibold rounded border-emerald-300 dark:border-emerald-800 text-foreground hover:bg-emerald-50 gap-1 px-1"
+              className="flex-1 h-6 text-[8.5px] font-semibold rounded gap-1 px-1"
             >
               <FontAwesomeIcon icon={faRotate} className="text-[8px]" />
               <span>Quay Lại</span>
@@ -347,7 +347,7 @@ const FoodFlashCardComponent: React.FC<FoodFlashCardProps> = ({
               size="sm"
               onClick={handleSave}
               className={`h-5 rounded px-2 text-[8.5px] font-semibold ${
-                saved ? "bg-emerald-600 text-white" : ""
+                saved ? "bg-primary text-primary-foreground" : ""
               }`}
             >
               <FontAwesomeIcon icon={faBookmark} className="text-[8px]" />

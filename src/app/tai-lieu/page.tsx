@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Tài liệu | Food Life",
+  title: "Về dự án",
   description:
     "Tài liệu mô tả nguồn dữ liệu, luồng hoạt động và quy tắc làm giàu dữ liệu món ăn cho dự án Food Life.",
   openGraph: {

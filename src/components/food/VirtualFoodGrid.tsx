@@ -10,9 +10,9 @@ interface VirtualFoodGridProps {
   maxVisibleRows?: number
 }
 
-const CARD_WIDTH = 190
+const CARD_WIDTH = 210
 const GAP = 14
-const ROW_HEIGHT = 229 // 215px card + 14px gap
+const ROW_HEIGHT = 264 // 250px card + 14px gap
 
 interface RowExtraProps {
   foods: FoodItem[]
@@ -107,7 +107,7 @@ export const VirtualFoodGrid: React.FC<VirtualFoodGridProps> = ({
             width: "100%",
           }}
           overscanCount={2}
-          className="scrollbar-thin scrollbar-thumb-emerald-600/30 scrollbar-track-transparent rounded-2xl"
+          className="rounded-2xl"
         />
       ) : null}
     </div>

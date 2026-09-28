@@ -154,9 +154,9 @@ export const GachaGame: React.FC<GachaGameProps> = ({ allFoods = defaultFoods })
       )}
 
       {/* ================= FILTER BAR ================= */}
-      <div className="max-w-4xl mx-auto mb-10 p-4 sm:p-5 rounded-3xl bg-card/70 dark:bg-card/40 border border-emerald-200/60 dark:border-emerald-800/40 shadow-sm backdrop-blur-md space-y-4">
-        <div className="flex items-center gap-2 text-xs font-bold text-emerald-800 dark:text-emerald-300 uppercase tracking-wider">
-          <FontAwesomeIcon icon={faFilter} className="text-emerald-600" />
+      <div className="glass-surface max-w-4xl mx-auto mb-10 p-4 sm:p-5 rounded-3xl space-y-4">
+        <div className="flex items-center gap-2 text-xs font-bold text-primary uppercase tracking-wider">
+          <FontAwesomeIcon icon={faFilter} className="text-primary" />
           <span>Tùy Chỉnh Gói Gợi Ý Món Ăn</span>
         </div>
 
@@ -173,7 +173,7 @@ export const GachaGame: React.FC<GachaGameProps> = ({ allFoods = defaultFoods })
                   onClick={() => setDishCount(cnt)}
                   className={`flex-1 py-1.5 text-xs font-bold rounded-lg transition-all ${
                     dishCount === cnt
-                      ? "bg-emerald-600 text-white shadow-xs"
+                      ? "bg-primary text-primary-foreground shadow-xs"
                       : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
@@ -191,7 +191,7 @@ export const GachaGame: React.FC<GachaGameProps> = ({ allFoods = defaultFoods })
             <select
               value={selectedDiet}
               onChange={(e) => setSelectedDiet(e.target.value as DietaryFilter)}
-              className="w-full bg-background border border-border/80 text-foreground text-xs font-medium rounded-xl p-2.5 focus:ring-2 focus:ring-emerald-500 focus:outline-hidden shadow-xs"
+              className="w-full bg-background border border-border/80 text-foreground text-xs font-medium rounded-xl p-2.5 focus:ring-2 focus:ring-ring focus:outline-hidden shadow-xs"
             >
               <option value="all">Tất Cả Chế Độ</option>
               <option value="veg">🌱 Món Chay</option>
@@ -207,7 +207,7 @@ export const GachaGame: React.FC<GachaGameProps> = ({ allFoods = defaultFoods })
             <select
               value={selectedPrice}
               onChange={(e) => setSelectedPrice(e.target.value as PriceFilter)}
-              className="w-full bg-background border border-border/80 text-foreground text-xs font-medium rounded-xl p-2.5 focus:ring-2 focus:ring-emerald-500 focus:outline-hidden shadow-xs"
+              className="w-full bg-background border border-border/80 text-foreground text-xs font-medium rounded-xl p-2.5 focus:ring-2 focus:ring-ring focus:outline-hidden shadow-xs"
             >
               <option value="all">Tất Cả Mức Giá</option>
               <option value="under_50">&lt; 50.000 ₫ (Tiết kiệm)</option>
@@ -225,7 +225,7 @@ export const GachaGame: React.FC<GachaGameProps> = ({ allFoods = defaultFoods })
             <select
               value={selectedSession}
               onChange={(e) => setSelectedSession(e.target.value as SessionFilter)}
-              className="w-full bg-background border border-border/80 text-foreground text-xs font-medium rounded-xl p-2.5 focus:ring-2 focus:ring-emerald-500 focus:outline-hidden shadow-xs"
+              className="w-full bg-background border border-border/80 text-foreground text-xs font-medium rounded-xl p-2.5 focus:ring-2 focus:ring-ring focus:outline-hidden shadow-xs"
             >
               <option value="auto">
                 Tự Động Theo Giờ ({recommendedSession})
@@ -256,7 +256,7 @@ export const GachaGame: React.FC<GachaGameProps> = ({ allFoods = defaultFoods })
           {/* Header with count and instructions */}
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 rounded-2xl bg-card border border-border/60 shadow-xs">
             <div className="space-y-0.5 text-center sm:text-left">
-              <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest">
+              <span className="text-xs font-bold text-primary uppercase tracking-widest">
                 Khám Phá Thành Công
               </span>
               <h3 className="text-xl font-black text-foreground">
@@ -273,7 +273,7 @@ export const GachaGame: React.FC<GachaGameProps> = ({ allFoods = defaultFoods })
                 variant="outline"
                 size="sm"
                 onClick={handleStartGacha}
-                className="rounded-full text-xs font-semibold gap-1.5 border-emerald-300 dark:border-emerald-800 text-emerald-800 dark:text-emerald-300 hover:bg-emerald-50"
+                className="rounded-full text-xs font-semibold gap-1.5"
               >
                 <FontAwesomeIcon icon={faRotate} className="text-xs" />
                 <span>Gợi Ý Lại</span>
@@ -283,7 +283,7 @@ export const GachaGame: React.FC<GachaGameProps> = ({ allFoods = defaultFoods })
                 variant="default"
                 size="sm"
                 onClick={handleSaveAll}
-                className="rounded-full text-xs font-semibold gap-1.5 bg-emerald-600 hover:bg-emerald-500 text-white shadow-sm"
+                className="rounded-full text-xs font-semibold gap-1.5"
               >
                 <FontAwesomeIcon
                   icon={savedAllSuccess ? faCheck : faBookmark}
@@ -321,7 +321,7 @@ export const GachaGame: React.FC<GachaGameProps> = ({ allFoods = defaultFoods })
               variant="outline"
               size="lg"
               onClick={handleResetToPack}
-              className="rounded-full px-8 font-bold border-emerald-300 dark:border-emerald-800 text-emerald-800 dark:text-emerald-300 hover:bg-emerald-50 gap-2 shadow-sm"
+              className="rounded-full px-8 font-bold gap-2 shadow-sm"
             >
               <FontAwesomeIcon icon={faArrowLeft} />
               <span>Mở Gói Khác</span>
