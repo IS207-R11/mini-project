@@ -18,9 +18,16 @@ interface TimeThemeContextType {
 
 const TimeThemeContext = createContext<TimeThemeContextType | undefined>(undefined);
 
+/**
+ * Determines the time period based on hour:
+ * - 05:00 - 10:59: Morning (Buổi sáng)
+ * - 11:00 - 13:59: Midday / Lunch (Buổi trưa)
+ * - 14:00 - 17:59: Afternoon (Buổi chiều)
+ * - 18:00 - 04:59: Evening / Night (Buổi tối)
+ */
 export function getPeriodFromHour(hour: number): TimePeriod {
-  if (hour >= 5 && hour < 10) return "morning";
-  if (hour >= 10 && hour < 14) return "midday";
+  if (hour >= 5 && hour < 11) return "morning";
+  if (hour >= 11 && hour < 14) return "midday";
   if (hour >= 14 && hour < 18) return "afternoon";
   return "night";
 }
@@ -30,24 +37,16 @@ export const TimeThemeProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   const [dateObj, setDateObj] = useState<Date>(() => new Date());
   const [isMounted, setIsMounted] = useState(false);
 
-  // Restore saved theme on mount (client-side only)
+  // Mark mounted on client (NO localStorage persistence per requirements)
   useEffect(() => {
     setIsMounted(true);
-    try {
-      const saved = localStorage.getItem("foodlife_theme_mode");
-      if (saved && ["auto", "morning", "midday", "afternoon", "night"].includes(saved)) {
-        setThemeModeState(saved as ThemeMode);
-      }
-    } catch (e) {
-      console.error(e);
-    }
   }, []);
 
-  // Clock tick every 30 seconds
+  // Update clock periodically
   useEffect(() => {
     const timer = setInterval(() => {
       setDateObj(new Date());
-    }, 30000);
+    }, 15000);
     return () => clearInterval(timer);
   }, []);
 
@@ -57,15 +56,11 @@ export const TimeThemeProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   const activePeriod: TimePeriod = themeMode === "auto" ? autoPeriod : themeMode;
 
   const setThemeMode = useCallback((mode: ThemeMode) => {
+    // In-memory state only - no localStorage
     setThemeModeState(mode);
-    try {
-      localStorage.setItem("foodlife_theme_mode", mode);
-    } catch (e) {
-      console.error(e);
-    }
   }, []);
 
-  // Update HTML data attribute for contextual styling
+  // Sync data-time-theme on root HTML for instant CSS styling
   useEffect(() => {
     const root = document.documentElement;
     root.setAttribute("data-time-theme", activePeriod);
@@ -79,7 +74,7 @@ export const TimeThemeProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 
   const currentDate = useMemo(() => {
     return dateObj.toLocaleDateString("vi-VN", {
-      weekday: "short",
+      weekday: "long",
       day: "numeric",
       month: "numeric",
     });
