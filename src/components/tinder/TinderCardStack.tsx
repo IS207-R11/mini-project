@@ -13,7 +13,7 @@ import {
   faListCheck,
 } from "@fortawesome/free-solid-svg-icons";
 import type { FoodItem } from "@/types/food";
-import { TinderCard } from "@/components/tinder/TinderCard";
+import { TinderCard, type TinderCardHandle } from "@/components/tinder/TinderCard";
 import { TinderControls } from "@/components/tinder/TinderControls";
 import { TinderMatchModal } from "@/components/tinder/TinderMatchModal";
 import { tinderSounds } from "@/lib/tinderSound";
@@ -41,8 +41,10 @@ export const TinderCardStack: React.FC<TinderCardStackProps> = ({
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [showKeyboardHint, setShowKeyboardHint] = useState(false);
 
-  // Top card ref for trigger programmatic flip
+  // Top card ref for programmatic swipe animation and flip
+  const topCardRef = useRef<TinderCardHandle | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const isSwipingRef = useRef(false);
 
   const currentFood = foods[currentIndex] || null;
   const isDeckFinished = currentIndex >= foods.length;
@@ -54,9 +56,11 @@ export const TinderCardStack: React.FC<TinderCardStackProps> = ({
     tinderSounds.enabled = next;
   };
 
-  // Main swipe action handler
+  // Main swipe action handler (called when card fly-away animation finishes)
   const handleSwipe = useCallback(
     (direction: "left" | "right" | "up", food: FoodItem) => {
+      isSwipingRef.current = false;
+
       // 1. Right swipe (Like) or Up (Super Like) -> CHỐT NGAY LẬP TỨC
       if (direction === "right" || direction === "up") {
         setHistory((prev) => [...prev, { food, action: direction }]);
@@ -73,30 +77,48 @@ export const TinderCardStack: React.FC<TinderCardStackProps> = ({
     []
   );
 
-  // Controls button actions
-  const handleLike = useCallback(() => {
-    if (!currentFood) return;
+  // Controls button actions & Keyboard triggers (with smooth fly-away animation)
+  const handleLike = useCallback(async () => {
+    if (!currentFood || isSwipingRef.current) return;
+    isSwipingRef.current = true;
     tinderSounds.triggerHaptic("medium");
     tinderSounds.playLike();
-    handleSwipe("right", currentFood);
+
+    if (topCardRef.current) {
+      await topCardRef.current.swipe("right");
+    } else {
+      handleSwipe("right", currentFood);
+    }
   }, [currentFood, handleSwipe]);
 
-  const handleNope = useCallback(() => {
-    if (!currentFood) return;
+  const handleNope = useCallback(async () => {
+    if (!currentFood || isSwipingRef.current) return;
+    isSwipingRef.current = true;
     tinderSounds.triggerHaptic("light");
     tinderSounds.playNope();
-    handleSwipe("left", currentFood);
+
+    if (topCardRef.current) {
+      await topCardRef.current.swipe("left");
+    } else {
+      handleSwipe("left", currentFood);
+    }
   }, [currentFood, handleSwipe]);
 
-  const handleSuperLike = useCallback(() => {
-    if (!currentFood) return;
+  const handleSuperLike = useCallback(async () => {
+    if (!currentFood || isSwipingRef.current) return;
+    isSwipingRef.current = true;
     tinderSounds.triggerHaptic("heavy");
     tinderSounds.playSuperLike();
-    handleSwipe("up", currentFood);
+
+    if (topCardRef.current) {
+      await topCardRef.current.swipe("up");
+    } else {
+      handleSwipe("up", currentFood);
+    }
   }, [currentFood, handleSwipe]);
 
   const handleUndo = useCallback(() => {
-    if (history.length === 0 || currentIndex === 0) return;
+    if (history.length === 0 || currentIndex === 0 || isSwipingRef.current) return;
     tinderSounds.triggerHaptic("light");
     tinderSounds.playUndo();
     setHistory((prev) => prev.slice(0, prev.length - 1));
@@ -104,7 +126,7 @@ export const TinderCardStack: React.FC<TinderCardStackProps> = ({
   }, [history.length, currentIndex]);
 
   const handleInfo = useCallback(() => {
-    if (!currentFood) return;
+    if (!currentFood || isSwipingRef.current) return;
     // Simulate click on flip button of the active card
     tinderSounds.playFlip();
     const flipBtn = containerRef.current?.querySelector(
@@ -261,6 +283,7 @@ export const TinderCardStack: React.FC<TinderCardStackProps> = ({
                 return (
                   <TinderCard
                     key={food.id}
+                    ref={isFront ? topCardRef : undefined}
                     food={food}
                     isFront={isFront}
                     stackIndex={stackIndex}
