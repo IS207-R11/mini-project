@@ -62,6 +62,7 @@ interface NavItem {
 
 const NAV_ITEMS: NavItem[] = [
   { href: "/", label: "Trang Chủ", segment: null },
+  { href: "/tinder", label: "Tinder Món Ăn", segment: "tinder" },
   { href: "/tai-nguyen", label: "Tài Nguyên", segment: "tai-nguyen" },
   { href: "/tai-lieu", label: "Tài Liệu", segment: "tai-lieu" },
 ];
