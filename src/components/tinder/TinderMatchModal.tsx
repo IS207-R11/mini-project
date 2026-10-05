@@ -14,7 +14,6 @@ import {
   faShareNodes,
   faFire,
   faTag,
-  faUtensils,
   faLeaf,
   faSliders,
 } from "@fortawesome/free-solid-svg-icons";

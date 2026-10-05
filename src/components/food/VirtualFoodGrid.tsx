@@ -10,9 +10,9 @@ interface VirtualFoodGridProps {
   maxVisibleRows?: number;
 }
 
-const CARD_WIDTH = 225;
-const GAP = 16;
-const ROW_HEIGHT = 306; // 290px card + 16px gap
+const CARD_WIDTH = 260;
+const GAP = 20;
+const ROW_HEIGHT = 375; // 355px card + 20px gap
 
 interface RowExtraProps {
   foods: FoodItem[];
@@ -34,7 +34,7 @@ const Row = ({
         ...style,
         height: `${ROW_HEIGHT - GAP}px`,
       }}
-      className="flex justify-center gap-4 px-1"
+      className="flex justify-center gap-5 px-1"
     >
       {rowFoods.map((food: FoodItem) => (
         <FoodFlashCard key={food.id} food={food} />

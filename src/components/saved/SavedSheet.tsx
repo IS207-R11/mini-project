@@ -62,9 +62,14 @@ export const SavedSheet: React.FC<SavedSheetProps> = ({ open, onOpenChange }) =>
         {/* Nutritional & Cost Summary Banner */}
         {savedFoods.length > 0 && (
           <div className="mx-5 my-3.5 p-4 bg-muted/60 rounded-3xl border border-border/60 space-y-2.5">
-            <span className="text-[11px] text-foreground uppercase tracking-wider block font-bold">
-              Tổng Quan Dinh Dưỡng & Chi Phí
-            </span>
+            <div className="flex items-center justify-between">
+              <span className="text-[11px] text-foreground uppercase tracking-wider block font-bold">
+                Tổng Quan Dinh Dưỡng & Chi Phí
+              </span>
+              <span className="text-[10px] text-muted-foreground italic font-medium">
+                Đơn vị tính: 100g
+              </span>
+            </div>
             <div className="grid grid-cols-3 gap-2 text-center">
               <div className="p-2.5 bg-card rounded-2xl border border-border/40 shadow-xs">
                 <span className="text-[10px] text-muted-foreground flex items-center justify-center gap-1 font-semibold">
@@ -115,6 +120,7 @@ export const SavedSheet: React.FC<SavedSheetProps> = ({ open, onOpenChange }) =>
             savedFoods.map((food) => {
               const imageSrc = food.imagePath || `/data/images/${food.id}.webp`;
               const formattedPrice = formatPrice(food.price);
+              const googleMapUrl = `https://www.google.com/maps/search/${encodeURIComponent(`quán ${food.name}`)}`;
 
               return (
                 <div key={food.id} className="py-3.5 flex items-center gap-3 group">
@@ -155,15 +161,30 @@ export const SavedSheet: React.FC<SavedSheetProps> = ({ open, onOpenChange }) =>
                       <span>{food.macros.protein}g đạm</span>
                     </div>
                   </div>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => removeFood(food.id)}
-                    className="h-8 w-8 text-muted-foreground hover:text-destructive hover:bg-destructive/10 rounded-full"
-                    title="Bỏ lưu món này"
-                  >
-                    <FontAwesomeIcon icon={faTrashCan} className="text-xs" />
-                  </Button>
+                  <div className="flex items-center gap-1 shrink-0">
+                    <a
+                      href={googleMapUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="h-8 w-8 hover:bg-muted/70 rounded-full flex items-center justify-center transition-colors border border-border/60 shrink-0"
+                      title={`Tìm quán ${food.name} trên Google Maps`}
+                    >
+                      <img
+                        src="https://upload.wikimedia.org/wikipedia/commons/a/a3/Google_Maps_icon_%282026%29.svg"
+                        alt="Google Maps"
+                        className="w-4 h-4 object-contain shrink-0"
+                      />
+                    </a>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => removeFood(food.id)}
+                      className="h-8 w-8 text-muted-foreground hover:text-destructive hover:bg-destructive/10 rounded-full"
+                      title="Bỏ lưu món này"
+                    >
+                      <FontAwesomeIcon icon={faTrashCan} className="text-xs" />
+                    </Button>
+                  </div>
                 </div>
               );
             })
